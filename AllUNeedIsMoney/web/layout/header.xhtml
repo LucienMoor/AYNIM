@@ -5,10 +5,32 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       >
     <body>
-	    <ui:composition>
- 
-		<h1>All U need is money</h1>
- 
-	    </ui:composition>
+    <ui:composition>
+        <div class="navbar navbar-inverse navbar-static-top" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">All U need is money</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#">Message</a></li>
+                        <li><a href="#">My profil</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li class="label">score</li>
+
+                    </ul>
+                    <form class="navbar-form navbar-right">
+                        <input type="text" class="form-control" placeholder="Search..." />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </ui:composition>
     </body>
 </html>
