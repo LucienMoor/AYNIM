@@ -8,7 +8,7 @@
         <ui:composition template="layout/commonLayout.xhtml">
  
     		<ui:define name="content">
-    			<h2>Me</h2>
+    			<h2>#{request.isUserInRole("AdminRole")}</h2>
     		</ui:define>
 
     	</ui:composition>
