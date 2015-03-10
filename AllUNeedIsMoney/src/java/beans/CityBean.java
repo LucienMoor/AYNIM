@@ -8,7 +8,7 @@ package beans;
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import javax.faces.bean.ApplicationScoped;
+import javax.enterprise.context.ApplicationScoped;
 import javax.faces.event.ValueChangeEvent;
 import javax.inject.Named;
 
@@ -20,14 +20,14 @@ import javax.inject.Named;
 @ApplicationScoped
 public class CityBean  implements Serializable{
     
-    private static Map<String, String> cities;
-    private String city = "Thing 1";
+    private static Map<String, Integer> cities;
+    private String city = "Berne";
     static{
-        cities = new LinkedHashMap<String,String>();
-        cities.put("First Thing", "Thing 1");
-        cities.put("Second Thing", "Thing 2");
-        cities.put("Third Thing", "Thing 3");
-        cities.put("Fourth Thing", "Thing 4");   
+        cities = new LinkedHashMap<String,Integer>();
+        cities.put("Berne", 0);
+        cities.put("New York", 1);
+        cities.put("London", 2);
+        cities.put("Beijing", 3);   
     }
     
     public void cityChanged(ValueChangeEvent e)
@@ -35,7 +35,7 @@ public class CityBean  implements Serializable{
         city = e.getNewValue().toString();
     }
     
-    public Map<String, String> getCitiesInMap()
+    public Map<String, Integer> getCitiesInMap()
     {
         return this.cities;
     }

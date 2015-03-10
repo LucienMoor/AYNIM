@@ -14,7 +14,7 @@ and open the template in the editor.
         <title>TODO supply a title</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
-    <body>
+    <body> 
         <h:form id="userForm" enctype="multipart/form-data">
             
             <p>
@@ -30,13 +30,13 @@ and open the template in the editor.
         </p>
             <p>
         Country : 
-        <h:selectOneMenu value="#{countryBean.country}">
+        <h:selectOneMenu id="country" value="#{countryBean.country}">
             <f:selectItems value="#{countryBean.countriesInMap}" />
         </h:selectOneMenu>
         </p>
         <p>
         City :
-        <h:selectOneMenu value="#{cityBean.city}">
+        <h:selectOneMenu id="city" value="#{cityBean.city}">
             <f:selectItems value="#{cityBean.citiesInMap}" />
         </h:selectOneMenu>
         </p>
@@ -47,7 +47,7 @@ and open the template in the editor.
         Password : <h:inputSecret id="password" />
         </p>
             
-        <h:commandButton value="Submit" action="user"/>
+            <h:commandButton value="Submit" action="#{userController.newUser(request)}"/>
             
         </h:form>
 

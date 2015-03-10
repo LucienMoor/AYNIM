@@ -8,7 +8,7 @@ package beans;
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import javax.faces.bean.ApplicationScoped;
+import javax.enterprise.context.ApplicationScoped;
 import javax.faces.event.ValueChangeEvent;
 import javax.inject.Named;
 
@@ -20,14 +20,14 @@ import javax.inject.Named;
 @ApplicationScoped
 public class CountryBean  implements Serializable{
     
-    private static Map<String, String> countries;
-    private String country = "Thing 1";
+    private static Map<String, Integer> countries;
+    private String country = "Switzerland";
     static{
-        countries = new LinkedHashMap<String,String>();
-        countries.put("First Thing", "Thing 1");
-        countries.put("Second Thing", "Thing 2");
-        countries.put("Third Thing", "Thing 3");
-        countries.put("Fourth Thing", "Thing 4");   
+        countries = new LinkedHashMap<String,Integer>();
+        countries.put("Switzerland", 0);
+        countries.put("USA", 1);
+        countries.put("England", 2);
+        countries.put("China", 3);   
     }
     
     public void countryChanged(ValueChangeEvent e)
@@ -35,7 +35,7 @@ public class CountryBean  implements Serializable{
         country = e.getNewValue().toString();
     }
     
-    public Map<String, String> getCountriesInMap()
+    public Map<String, Integer> getCountriesInMap()
     {
         return this.countries;
     }
