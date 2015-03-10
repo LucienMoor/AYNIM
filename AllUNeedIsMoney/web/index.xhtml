@@ -11,11 +11,11 @@ and open the template in the editor.
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <head>
         <title>All U need is money</title>
-        #{request.isUserInRole("AdminRole")}
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
-        <p>Request a secure Admin page <a href="adminSecure/pageA.html">here!</a></p>
-        <p>Request a secure User page <a href="secureUser/pageU.html" >here!</a></p>
+        <ui:composition template="homePage.xhtml">
+ 
+    	</ui:composition>
     </body>
 </html>
