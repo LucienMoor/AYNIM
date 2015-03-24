@@ -6548,6 +6548,37 @@ button.close {
 .visible-print-inline {
   display: none !important;
 }
+.avatar img {
+    width:100%;
+    max-width:200px;
+ }
+ 
+#left-part, #center-part{
+    position: fixed;
+    left:0; top:10%; right:5%; bottom:10%;
+}
+
+#status{
+    float:right;
+}
+ 
+#left-part{
+     right: 80%;
+ }
+ 
+#center-part {
+     border: 1px solid #000;
+     left: 15%;
+     
+ }
+ 
+ #center-top-part{
+      border: 1px solid red;
+      top: 20%;
+ }
+
+ 
+
 @media print {
   .visible-print-inline {
     display: inline !important;
