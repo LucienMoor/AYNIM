@@ -3,14 +3,51 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:ui="http://java.sun.com/jsf/facelets"
+          
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
       >
     <body>
         <ui:composition template="layout/commonLayout.xhtml">
  
-    		<ui:define name="content">
-    			<h2>Me</h2>
-    		</ui:define>
-
+            <ui:define name="content">
+                <div class="avatar" id="left-part">   
+                    <p>
+                        <h:graphicImage library="images" name="smiley.png"/>
+                    </p>
+                    <p>
+                        <h:button class="btn-info" value="See more picture"/>
+                    </p>
+                    <p>
+                        <h:button class="btn-danger" value="Delete"/>
+                        <h:button class="btn-info" value="Edit"/>
+                    </p>
+                    <p>
+                        <label>Score</label>   
+                        <h:button class="btn-info" value="+"/>
+                    </p>
+                </div>
+                <div id="center-part">
+                    <div id="center-top-part"> 
+                        <span>
+                            <p>
+                                 <label>Nickname</label>
+                            </p>
+                            <p>
+                                 <label>Age</label>
+                                 <label>City</label>
+                            </p>
+                            <p>
+                                 <label>Country</label>
+                            </p>
+                        </span>
+                        <div id="status">
+                            <p>bla</p>
+                        </div>   
+                    </div>
+                </div>
+            </ui:define>
+               
     	</ui:composition>
     </body>
 </html>
