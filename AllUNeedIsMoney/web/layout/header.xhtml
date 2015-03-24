@@ -3,7 +3,8 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      >
+          
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <body>
     <ui:composition>
         <div class="navbar navbar-inverse navbar-static-top" role="navigation">
@@ -31,7 +32,12 @@
                         <li><a href="profilPage.xhtml">My profil</a></li>
                         <li><a href="contactPage.xhtml">Contact</a></li>
                         <li class="label">score</li>
-                        <li><a href="login.xhtml">Login/Sign in</a></li>
+                        <c:choose>
+                            <c:when test="${request.remoteUser=='lucien'}"><li><a href="#">#{request.remoteUser}</a></li></c:when>
+                            <c:otherwise><li><a href="login.xhtml">Login/Sign in </a></li></c:otherwise>
+                        </c:choose>
+                        
+                        <li></li>
                     </ul>
                     
                 </div>
