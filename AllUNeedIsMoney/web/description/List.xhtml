@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListDescriptionTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListDescriptionEmpty}" rendered="#{descriptionController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{descriptionController.items.rowCount > 0}">
+                    <h:outputText value="#{descriptionController.pagination.pageFirstItem + 1}..#{descriptionController.pagination.pageLastItem + 1}/#{descriptionController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{descriptionController.previous}" value="#{bundle.Previous} #{descriptionController.pagination.pageSize}" rendered="#{descriptionController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{descriptionController.next}" value="#{bundle.Next} #{descriptionController.pagination.pageSize}" rendered="#{descriptionController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{descriptionController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDescriptionTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDescriptionTitle_userid}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.userid}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDescriptionTitle_plus}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.plus}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDescriptionTitle_minus}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.minus}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDescriptionTitle_text}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.text}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDescriptionTitle_like}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.like}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDescriptionTitle_dislike}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dislike}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDescriptionTitle_user}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.user}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{descriptionController.prepareView}" value="#{bundle.ListDescriptionViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{descriptionController.prepareEdit}" value="#{bundle.ListDescriptionEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{descriptionController.destroy}" value="#{bundle.ListDescriptionDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{descriptionController.prepareCreate}" value="#{bundle.ListDescriptionCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListDescriptionIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

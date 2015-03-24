@@ -6555,11 +6555,11 @@ button.close {
  
 #left-part, #center-part{
     position: fixed;
-    left:0; top:10%; right:5%; bottom:10%;
+    left:0; top:10%; right:5%; bottom:20%;
 }
 
 #status{
-    float:right;
+    float:left;
 }
  
 #left-part{
