@@ -11,11 +11,21 @@ and open the template in the editor.
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <head>
         <title>All U need is money</title>
+        <link rel="stylesheet" type="text/css" href="/AllUNeedIsMoney/faces/jsfcrud.css" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
+
         <ui:composition template="homePage.xhtml">
- 
-    	</ui:composition>
+
+        </ui:composition>
+        <h:form>
+            <h:commandLink action="#{message.listSetup}" value="Show All Message Items"/>
+        </h:form>
+        <h:form>
+            <h:commandLink action="#{user.listSetup}" value="Show All User Items"/>
+        </h:form>
     </body>
+
+
 </html>

@@ -33,6 +33,18 @@
             <role-name>AdminRole</role-name>
         </auth-constraint>
     </security-constraint>
+    <security-constraint>
+        <display-name>UserConstraint</display-name>
+        <web-resource-collection>
+            <web-resource-name>user</web-resource-name>
+            <description/>
+            <url-pattern>/userSecure/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>UserRole</role-name>
+        </auth-constraint>
+    </security-constraint>
     <login-config>
         <auth-method>FORM</auth-method>
         <realm-name>AYNIMRealm</realm-name>
