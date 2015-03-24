@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateMessageTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateMessageLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{messageController.selected.id}" title="#{bundle.CreateMessageTitle_id}" required="true" requiredMessage="#{bundle.CreateMessageRequiredMessage_id}"/>
+                    <h:outputLabel value="#{bundle.CreateMessageLabel_userid}" for="userid" />
+                    <h:inputText id="userid" value="#{messageController.selected.userid}" title="#{bundle.CreateMessageTitle_userid}" required="true" requiredMessage="#{bundle.CreateMessageRequiredMessage_userid}"/>
+                    <h:outputLabel value="#{bundle.CreateMessageLabel_senderid}" for="senderid" />
+                    <h:inputText id="senderid" value="#{messageController.selected.senderid}" title="#{bundle.CreateMessageTitle_senderid}" required="true" requiredMessage="#{bundle.CreateMessageRequiredMessage_senderid}"/>
+                    <h:outputLabel value="#{bundle.CreateMessageLabel_content}" for="content" />
+                    <h:inputTextarea rows="4" cols="30" id="content" value="#{messageController.selected.content}" title="#{bundle.CreateMessageTitle_content}" required="true" requiredMessage="#{bundle.CreateMessageRequiredMessage_content}"/>
+                    <h:outputLabel value="#{bundle.CreateMessageLabel_user}" for="user" />
+                    <h:selectOneMenu id="user" value="#{messageController.selected.user}" title="#{bundle.CreateMessageTitle_user}" required="true" requiredMessage="#{bundle.CreateMessageRequiredMessage_user}">
+                        <f:selectItems value="#{userController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{messageController.create}" value="#{bundle.CreateMessageSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{messageController.prepareList}" value="#{bundle.CreateMessageShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateMessageIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateContactTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateContactLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{contactController.selected.id}" title="#{bundle.CreateContactTitle_id}" required="true" requiredMessage="#{bundle.CreateContactRequiredMessage_id}"/>
+                    <h:outputLabel value="#{bundle.CreateContactLabel_userid}" for="userid" />
+                    <h:inputText id="userid" value="#{contactController.selected.userid}" title="#{bundle.CreateContactTitle_userid}" required="true" requiredMessage="#{bundle.CreateContactRequiredMessage_userid}"/>
+                    <h:outputLabel value="#{bundle.CreateContactLabel_contactid}" for="contactid" />
+                    <h:inputText id="contactid" value="#{contactController.selected.contactid}" title="#{bundle.CreateContactTitle_contactid}" required="true" requiredMessage="#{bundle.CreateContactRequiredMessage_contactid}"/>
+                    <h:outputLabel value="#{bundle.CreateContactLabel_user}" for="user" />
+                    <h:selectOneMenu id="user" value="#{contactController.selected.user}" title="#{bundle.CreateContactTitle_user}" required="true" requiredMessage="#{bundle.CreateContactRequiredMessage_user}">
+                        <f:selectItems value="#{userController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{contactController.create}" value="#{bundle.CreateContactSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{contactController.prepareList}" value="#{bundle.CreateContactShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateContactIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

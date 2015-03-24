@@ -30,15 +30,11 @@ and open the template in the editor.
         </p>
             <p>
         Country : 
-        <h:selectOneMenu id="country" value="#{countryBean.country}">
-            <f:selectItems value="#{countryBean.countriesInMap}" />
-        </h:selectOneMenu>
+        <h:inputText id ="country"/>
         </p>
         <p>
         City :
-        <h:selectOneMenu id="city" value="#{cityBean.city}">
-            <f:selectItems value="#{cityBean.citiesInMap}" />
-        </h:selectOneMenu>
+        <h:inputText id ="city"/>
         </p>
         <p>
         Profil picture : <h:inputFile id="picture"/>
@@ -47,7 +43,7 @@ and open the template in the editor.
         Password : <h:inputSecret id="password" />
         </p>
             
-            <h:commandButton value="Submit" action=""/>
+            <h:commandButton value="Submit" action="/RegistrationServlet"/>
             
         </h:form>
 
