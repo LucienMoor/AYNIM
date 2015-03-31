@@ -5,18 +5,17 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
+    <ui:composition template="/layout/commonLayout.xhtml">
+        <ui:define name="content">
+
             <h:outputText value="#{bundle.CreateUserTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
+            
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateUserLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{userController.selected.id}" title="#{bundle.CreateUserTitle_id}" required="true" requiredMessage="#{bundle.CreateUserRequiredMessage_id}"/>
+                  
                     <h:outputLabel value="#{bundle.CreateUserLabel_nickname}" for="nickname" />
                     <h:inputText id="nickname" value="#{userController.selected.nickname}" title="#{bundle.CreateUserTitle_nickname}" required="true" requiredMessage="#{bundle.CreateUserRequiredMessage_nickname}"/>
                     <h:outputLabel value="#{bundle.CreateUserLabel_email}" for="email" />
@@ -25,42 +24,14 @@
                     <h:inputText id="birthday" value="#{userController.selected.birthday}" title="#{bundle.CreateUserTitle_birthday}" >
                         <f:convertDateTime pattern="MM/dd/yyyy" />
                     </h:inputText>
-                    <h:outputLabel value="#{bundle.CreateUserLabel_score1}" for="score1" />
-                    <h:inputText id="score1" value="#{userController.selected.score1}" title="#{bundle.CreateUserTitle_score1}" />
                     <h:outputLabel value="#{bundle.CreateUserLabel_password}" for="password" />
-                    <h:inputTextarea rows="4" cols="30" id="password" value="#{userController.selected.password}" title="#{bundle.CreateUserTitle_password}" required="true" requiredMessage="#{bundle.CreateUserRequiredMessage_password}"/>
+                    <h:inputSecret id="password" value="#{userController.selected.password}" title="#{bundle.CreateUserTitle_password}" required="true" requiredMessage="#{bundle.CreateUserRequiredMessage_password}"/>
                     <h:outputLabel value="#{bundle.CreateUserLabel_country}" for="country" />
                     <h:inputText id="country" value="#{userController.selected.country}" title="#{bundle.CreateUserTitle_country}" />
                     <h:outputLabel value="#{bundle.CreateUserLabel_city}" for="city" />
                     <h:inputText id="city" value="#{userController.selected.city}" title="#{bundle.CreateUserTitle_city}" />
-                    <h:outputLabel value="#{bundle.CreateUserLabel_picture1}" for="picture1" />
-                    <h:inputText id="picture1" value="#{userController.selected.picture1}" title="#{bundle.CreateUserTitle_picture1}" />
                     <h:outputLabel value="#{bundle.CreateUserLabel_description}" for="description" />
                     <h:inputTextarea rows="4" cols="30" id="description" value="#{userController.selected.description}" title="#{bundle.CreateUserTitle_description}" required="true" requiredMessage="#{bundle.CreateUserRequiredMessage_description}"/>
-                    <h:outputLabel value="#{bundle.CreateUserLabel_message}" for="message" />
-                    <h:selectOneMenu id="message" value="#{userController.selected.message}" title="#{bundle.CreateUserTitle_message}" >
-                        <f:selectItems value="#{messageController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateUserLabel_picture}" for="picture" />
-                    <h:selectOneMenu id="picture" value="#{userController.selected.picture}" title="#{bundle.CreateUserTitle_picture}" >
-                        <f:selectItems value="#{pictureController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateUserLabel_userGroup}" for="userGroup" />
-                    <h:selectOneMenu id="userGroup" value="#{userController.selected.userGroup}" title="#{bundle.CreateUserTitle_userGroup}" >
-                        <f:selectItems value="#{userGroupController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateUserLabel_report}" for="report" />
-                    <h:selectOneMenu id="report" value="#{userController.selected.report}" title="#{bundle.CreateUserTitle_report}" >
-                        <f:selectItems value="#{reportController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateUserLabel_score}" for="score" />
-                    <h:selectOneMenu id="score" value="#{userController.selected.score}" title="#{bundle.CreateUserTitle_score}" >
-                        <f:selectItems value="#{scoreController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="#{bundle.CreateUserLabel_contact}" for="contact" />
-                    <h:selectOneMenu id="contact" value="#{userController.selected.contact}" title="#{bundle.CreateUserTitle_contact}" >
-                        <f:selectItems value="#{contactController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{userController.create}" value="#{bundle.CreateUserSaveLink}" />
