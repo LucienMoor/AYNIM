@@ -5,50 +5,34 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
+    <ui:composition template="/layout/commonLayout.xhtml">
+        <ui:define name="content">
             <h:outputText value="#{bundle.ViewUserTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewUserLabel_id}"/>
-                    <h:outputText value="#{userController.selected.id}" title="#{bundle.ViewUserTitle_id}"/>
+                    
                     <h:outputText value="#{bundle.ViewUserLabel_nickname}"/>
                     <h:outputText value="#{userController.selected.nickname}" title="#{bundle.ViewUserTitle_nickname}"/>
-                    <h:outputText value="#{bundle.ViewUserLabel_email}"/>
-                    <h:outputText value="#{userController.selected.email}" title="#{bundle.ViewUserTitle_email}"/>
+                    
                     <h:outputText value="#{bundle.ViewUserLabel_birthday}"/>
                     <h:outputText value="#{userController.selected.birthday}" title="#{bundle.ViewUserTitle_birthday}">
                         <f:convertDateTime pattern="MM/dd/yyyy" />
                     </h:outputText>
                     <h:outputText value="#{bundle.ViewUserLabel_score1}"/>
                     <h:outputText value="#{userController.selected.score1}" title="#{bundle.ViewUserTitle_score1}"/>
-                    <h:outputText value="#{bundle.ViewUserLabel_password}"/>
-                    <h:outputText value="#{userController.selected.password}" title="#{bundle.ViewUserTitle_password}"/>
+                    
                     <h:outputText value="#{bundle.ViewUserLabel_country}"/>
                     <h:outputText value="#{userController.selected.country}" title="#{bundle.ViewUserTitle_country}"/>
+                    
                     <h:outputText value="#{bundle.ViewUserLabel_city}"/>
                     <h:outputText value="#{userController.selected.city}" title="#{bundle.ViewUserTitle_city}"/>
-                    <h:outputText value="#{bundle.ViewUserLabel_picture1}"/>
-                    <h:outputText value="#{userController.selected.picture1}" title="#{bundle.ViewUserTitle_picture1}"/>
+                   
                     <h:outputText value="#{bundle.ViewUserLabel_description}"/>
                     <h:outputText value="#{userController.selected.description}" title="#{bundle.ViewUserTitle_description}"/>
-                    <h:outputText value="#{bundle.ViewUserLabel_message}"/>
-                    <h:outputText value="#{userController.selected.message}" title="#{bundle.ViewUserTitle_message}"/>
-                    <h:outputText value="#{bundle.ViewUserLabel_picture}"/>
-                    <h:outputText value="#{userController.selected.picture}" title="#{bundle.ViewUserTitle_picture}"/>
-                    <h:outputText value="#{bundle.ViewUserLabel_userGroup}"/>
-                    <h:outputText value="#{userController.selected.userGroup}" title="#{bundle.ViewUserTitle_userGroup}"/>
-                    <h:outputText value="#{bundle.ViewUserLabel_report}"/>
-                    <h:outputText value="#{userController.selected.report}" title="#{bundle.ViewUserTitle_report}"/>
-                    <h:outputText value="#{bundle.ViewUserLabel_score}"/>
-                    <h:outputText value="#{userController.selected.score}" title="#{bundle.ViewUserTitle_score}"/>
-                    <h:outputText value="#{bundle.ViewUserLabel_contact}"/>
-                    <h:outputText value="#{userController.selected.contact}" title="#{bundle.ViewUserTitle_contact}"/>
+                    
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{userController.destroyAndView}" value="#{bundle.ViewUserDestroyLink}"/>
