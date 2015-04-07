@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 
     <ui:composition template="/layout/commonLayout.xhtml">
         <ui:define name="content">
@@ -11,15 +12,16 @@
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
-            <h:form>
+            <h:form id="form" enctype="multipart/form-data">
                 <h:panelGrid columns="2">             
-                    <h:outputLabel value="#{bundle.EditUserLabel_nickname}" for="nickname" />
-                    <h:inputText id="nickname" value="#{userController.selected.nickname}" title="#{bundle.EditUserTitle_nickname}" required="true" requiredMessage="#{bundle.EditUserRequiredMessage_nickname}"/>
+
                     <h:outputLabel value="#{bundle.EditUserLabel_email}" for="email" />
-                    <h:inputText id="email" value="#{userController.selected.email}" title="#{bundle.EditUserTitle_email}" required="true" requiredMessage="#{bundle.EditUserRequiredMessage_email}"/>
+                    <h:inputText id="email" p:type="email" value="#{userController.selected.email}" label="email" size="40" validatorMessage="Invalid email format" title="#{bundle.EditUserTitle_email}" required="true" requiredMessage="#{bundle.EditUserRequiredMessage_email}" >
+                        <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                    </h:inputText>
                     <h:outputLabel value="#{bundle.EditUserLabel_birthday}" for="birthday" />
-                    <h:inputText id="birthday" value="#{userController.selected.birthday}" title="#{bundle.EditUserTitle_birthday}" >
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    <h:inputText id="birthday" p:type="date" value="#{userController.selected.birthday}" title="#{bundle.EditUserTitle_birthday}" >
+                        <f:convertDateTime pattern="yyyy-MM-dd" />
                     </h:inputText>
                     <h:outputLabel value="#{bundle.EditUserLabel_password}" for="password" />
                     <h:inputSecret id="password" value="#{userController.selected.password}" title="#{bundle.EditUserTitle_password}" required="true" requiredMessage="#{bundle.EditUserRequiredMessage_password}"/>
@@ -29,7 +31,7 @@
                     <h:inputText id="city" value="#{userController.selected.city}" title="#{bundle.EditUserTitle_city}" />
                     <h:outputLabel value="#{bundle.EditUserLabel_description}" for="description" />
                     <h:inputTextarea rows="4" cols="30" id="description" value="#{userController.selected.description}" title="#{bundle.EditUserTitle_description}" required="true" requiredMessage="#{bundle.EditUserRequiredMessage_description}"/>
-                    
+                    Profil picture : <h:inputFile id="picture" value="#{userController.selected.picture}"/>
                 </h:panelGrid>
                 <h:commandLink action="#{userController.update}" value="#{bundle.EditUserSaveLink}"/>
                 <br />
