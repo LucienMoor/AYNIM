@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/layout/commonLayout.xhtml">
+        <ui:define name="content">
+            <h:outputText value="#{bundle.ViewUserTitle}"></h:outputText>
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    
+                    <h:outputText value="#{bundle.ViewUserLabel_nickname}"/>
+                    <h:outputText value="#{userController.selected.nickname}" title="#{bundle.ViewUserTitle_nickname}"/>
+                    
+                    <h:outputText value="#{bundle.ViewUserLabel_birthday}"/>
+                    <h:outputText value="#{userController.selected.birthday}" title="#{bundle.ViewUserTitle_birthday}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewUserLabel_score1}"/>
+                    <h:outputText value="#{userController.selected.score1}" title="#{bundle.ViewUserTitle_score1}"/>
+                    
+                    <h:outputText value="#{bundle.ViewUserLabel_country}"/>
+                    <h:outputText value="#{userController.selected.country}" title="#{bundle.ViewUserTitle_country}"/>
+                    
+                    <h:outputText value="#{bundle.ViewUserLabel_city}"/>
+                    <h:outputText value="#{userController.selected.city}" title="#{bundle.ViewUserTitle_city}"/>
+                   
+                    <h:outputText value="#{bundle.ViewUserLabel_description}"/>
+                    <h:outputText value="#{userController.selected.description}" title="#{bundle.ViewUserTitle_description}"/>
+                    
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{userController.destroyAndView}" value="#{bundle.ViewUserDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewUserEditLink}"/>
+                <br />
+                <h:commandLink action="#{userController.prepareCreate}" value="#{bundle.ViewUserCreateLink}" />
+                <br />
+                <h:commandLink action="#{userController.prepareList}" value="#{bundle.ViewUserShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewUserIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
