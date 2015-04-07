@@ -89,6 +89,11 @@ public class UserController implements Serializable {
         return "View";
     }
 
+    public String prepareProfil() {
+        current = (User) getFacade().find(this);
+        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        return "View";
+    }
     public String prepareCreate() {
         current = new User();
         selectedItemIndex = -1;
