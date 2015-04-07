@@ -3,10 +3,24 @@ package controller;
 import entities.User;
 import controller.util.JsfUtil;
 import controller.util.PaginationHelper;
+import entities.Picture;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
@@ -16,13 +30,16 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
+
+import javax.faces.validator.ValidatorException;
+import javax.servlet.http.Part;
+
 
 @ManagedBean(name = "userController")
 @SessionScoped
 public class UserController implements Serializable  {
 
+    private Part file;
     private User current;
     private DataModel items = null;
     @EJB
@@ -82,6 +99,43 @@ public class UserController implements Serializable  {
     }
 
     public String create() {
+
+        if (file != null) {
+            try {
+                String filePath = uploadFile();
+
+                current.setProfilPicture(filePath);
+            } catch (IOException ex) {
+                Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+                return null;
+            }
+        }
+
+        try {
+
+            MessageDigest md;
+            md = MessageDigest.getInstance("SHA-256");
+            md.update(current.getPassword().getBytes("UTF-8")); // Change this to "UTF-16" if needed
+            byte[] hash = md.digest();
+            StringBuffer hexString = new StringBuffer();
+
+            for (int i = 0; i < hash.length; i++) {
+                String hex = Integer.toHexString(0xff & hash[i]);
+                if (hex.length() == 1) {
+                    hexString.append('0');
+                }
+                hexString.append(hex);
+            }
+
+            String hashedPassword = hexString.toString();
+            current.setPassword(hashedPassword);
+
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         try {
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UserCreated"));
@@ -92,6 +146,50 @@ public class UserController implements Serializable  {
         }
     }
 
+    private String getFileName(Part part) {
+        final String partHeader = part.getHeader("content-disposition");
+        System.out.println("***** partHeader: " + partHeader);
+        for (String content : part.getHeader("content-disposition").split(";")) {
+            if (content.trim().startsWith("filename")) {
+                return content.substring(content.indexOf('=') + 1).trim()
+                        .replace("\"", "");
+            }
+        }
+        return null;
+    }
+
+    private String uploadFile() throws IOException {
+
+        // Extract file name from content-disposition header of file part
+        String fileName = getFileName(getFile());
+        System.out.println("***** fileName: " + fileName);
+
+        String basePath = "C:" + File.separator + "temp" + File.separator;
+        File outputFilePath = new File(basePath + fileName);
+
+        // Copy uploaded file to destination path
+        InputStream inputStream = null;
+        OutputStream outputStream = null;
+
+        inputStream = getFile().getInputStream();
+        outputStream = new FileOutputStream(outputFilePath);
+
+        int read = 0;
+        final byte[] bytes = new byte[1024];
+        while ((read = inputStream.read(bytes)) != -1) {
+            outputStream.write(bytes, 0, read);
+        }
+
+        if (outputStream != null) {
+            outputStream.close();
+        }
+        if (inputStream != null) {
+            inputStream.close();
+        }
+
+        return basePath + fileName;
+    }
+
     public String prepareEdit() {
         current = (User) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
@@ -99,6 +197,42 @@ public class UserController implements Serializable  {
     }
 
     public String update() {
+
+        if (file != null) {
+            try {
+                String filePath = uploadFile();
+
+                current.setProfilPicture(filePath);
+            } catch (IOException ex) {
+                Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+                return null;
+            }
+        }
+
+        try {
+
+            MessageDigest md;
+            md = MessageDigest.getInstance("SHA-256");
+            md.update(current.getPassword().getBytes("UTF-8")); // Change this to "UTF-16" if needed
+            byte[] hash = md.digest();
+            StringBuffer hexString = new StringBuffer();
+
+            for (int i = 0; i < hash.length; i++) {
+                String hex = Integer.toHexString(0xff & hash[i]);
+                if (hex.length() == 1) {
+                    hexString.append('0');
+                }
+                hexString.append(hex);
+            }
+
+            String hashedPassword = hexString.toString();
+            current.setPassword(hashedPassword);
+
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         try {
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UserUpdated"));
@@ -190,6 +324,20 @@ public class UserController implements Serializable  {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
+    /**
+     * @return the file
+     */
+    public Part getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(Part file) {
+        this.file = file;
+    }
+
     @FacesConverter(forClass = User.class)
     public static class UserControllerConverter implements Converter {
 
@@ -228,6 +376,23 @@ public class UserController implements Serializable  {
             }
         }
 
+    }
+
+    public void validateFile(FacesContext ctx,
+            UIComponent comp,
+            Object value) {
+        List<FacesMessage> msgs = new ArrayList<FacesMessage>();
+        Part file = (Part) value;
+        if (file.getSize() > 1024) {
+            msgs.add(new FacesMessage("file too big"));
+        }
+
+        if (!"image".equals(file.getContentType())) {
+            msgs.add(new FacesMessage("not an image"));
+        }
+        if (!msgs.isEmpty()) {
+            throw new ValidatorException(msgs);
+        }
     }
 
 }

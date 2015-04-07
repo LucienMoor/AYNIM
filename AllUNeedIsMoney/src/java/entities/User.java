@@ -6,7 +6,9 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,6 +19,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -40,8 +43,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "User.findByBirthday", query = "SELECT u FROM User u WHERE u.birthday = :birthday"),
     @NamedQuery(name = "User.findByScore1", query = "SELECT u FROM User u WHERE u.score1 = :score1"),
     @NamedQuery(name = "User.findByCountry", query = "SELECT u FROM User u WHERE u.country = :country"),
-    @NamedQuery(name = "User.findByCity", query = "SELECT u FROM User u WHERE u.city = :city"),
-    @NamedQuery(name = "User.findByPicture1", query = "SELECT u FROM User u WHERE u.picture1 = :picture1")})
+    @NamedQuery(name = "User.findByCity", query = "SELECT u FROM User u WHERE u.city = :city")})
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -78,8 +80,8 @@ public class User implements Serializable {
     @Size(max = 45)
     @Column(name = "city")
     private String city;
-    @Column(name = "picture")
-    private Integer picture1;
+    @Column(name = "profilPicture")
+    private String profilPicture;
     @Basic(optional = false)
     @NotNull
     @Lob
@@ -88,8 +90,8 @@ public class User implements Serializable {
     private String description;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     private Message message;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
-    private Picture picture;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Picture> picture = new ArrayList<Picture>();
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     private UserGroup userGroup;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
@@ -178,12 +180,12 @@ public class User implements Serializable {
         this.city = city;
     }
 
-    public Integer getPicture1() {
-        return picture1;
+    public String getProfilPicture() {
+        return profilPicture;
     }
 
-    public void setPicture1(Integer picture1) {
-        this.picture1 = picture1;
+    public void setProfilPicture(String picture) {
+        this.profilPicture = picture;
     }
 
     public String getDescription() {
@@ -202,12 +204,12 @@ public class User implements Serializable {
         this.message = message;
     }
 
-    public Picture getPicture() {
-        return picture;
+    public Picture getPicture(int i) {
+        return picture.get(i);
     }
 
-    public void setPicture(Picture picture) {
-        this.picture = picture;
+    public void setPicture(List<Picture> pictures) {
+        this.picture = pictures;
     }
 
     public UserGroup getUserGroup() {
@@ -265,6 +267,10 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "entities.User[ id=" + id + " ]";
+    }
+
+    public void addPicture(Picture picture) {
+       this.picture.add(picture);
     }
     
 }

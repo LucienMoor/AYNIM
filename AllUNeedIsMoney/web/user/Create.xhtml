@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 
     <ui:composition template="/layout/commonLayout.xhtml">
         <ui:define name="content">
@@ -13,16 +14,23 @@
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
-            <h:form>
+            <h:form id="form" enctype="multipart/form-data">
                 <h:panelGrid columns="2">
                   
                     <h:outputLabel value="#{bundle.CreateUserLabel_nickname}" for="nickname" />
-                    <h:inputText id="nickname" value="#{userController.selected.nickname}" title="#{bundle.CreateUserTitle_nickname}" required="true" requiredMessage="#{bundle.CreateUserRequiredMessage_nickname}"/>
+                    <h:inputText id="nickname" value="#{userController.selected.nickname}" title="#{bundle.CreateUserTitle_nickname}" required="true" requiredMessage="#{bundle.CreateUserRequiredMessage_nickname}" validatorMessage="The nickname must be between 2 and 10 character long">
+                              <f:validateLength minimum="2" maximum="10"/>
+                    </h:inputText>
                     <h:outputLabel value="#{bundle.CreateUserLabel_email}" for="email" />
-                    <h:inputText id="email" value="#{userController.selected.email}" title="#{bundle.CreateUserTitle_email}" required="true" requiredMessage="#{bundle.CreateUserRequiredMessage_email}"/>
+                    <h:inputText id="email" p:type="email" value="#{userController.selected.email}" label="email" size="40" validatorMessage="Invalid email format" title="#{bundle.CreateUserTitle_email}" required="true" requiredMessage="#{bundle.CreateUserRequiredMessage_email}" >
+	  <f:validateRegex
+		pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+ 
+	</h:inputText>
+                    
                     <h:outputLabel value="#{bundle.CreateUserLabel_birthday}" for="birthday" />
-                    <h:inputText id="birthday" value="#{userController.selected.birthday}" title="#{bundle.CreateUserTitle_birthday}" >
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    <h:inputText id="birthday" p:type="date" value="#{userController.selected.birthday}" title="#{bundle.CreateUserTitle_birthday}" >
+                        <f:convertDateTime pattern="yyyy-MM-dd" />
                     </h:inputText>
                     <h:outputLabel value="#{bundle.CreateUserLabel_password}" for="password" />
                     <h:inputSecret id="password" value="#{userController.selected.password}" title="#{bundle.CreateUserTitle_password}" required="true" requiredMessage="#{bundle.CreateUserRequiredMessage_password}"/>
@@ -32,6 +40,7 @@
                     <h:inputText id="city" value="#{userController.selected.city}" title="#{bundle.CreateUserTitle_city}" />
                     <h:outputLabel value="#{bundle.CreateUserLabel_description}" for="description" />
                     <h:inputTextarea rows="4" cols="30" id="description" value="#{userController.selected.description}" title="#{bundle.CreateUserTitle_description}" required="true" requiredMessage="#{bundle.CreateUserRequiredMessage_description}"/>
+                    Profil picture : <h:inputFile id="picture" value="#{userController.file}"/>
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{userController.create}" value="#{bundle.CreateUserSaveLink}" />
