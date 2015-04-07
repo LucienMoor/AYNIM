@@ -99,7 +99,6 @@ public class UserController implements Serializable {
 
         if (file != null) {
             try {
-                System.out.print("yop");
                 String filePath = uploadFile();
 
                 current.setProfilPicture(filePath);
@@ -110,7 +109,7 @@ public class UserController implements Serializable {
         }
 
         try {
-            
+
             MessageDigest md;
             md = MessageDigest.getInstance("SHA-256");
             md.update(current.getPassword().getBytes("UTF-8")); // Change this to "UTF-16" if needed
@@ -195,6 +194,42 @@ public class UserController implements Serializable {
     }
 
     public String update() {
+
+        if (file != null) {
+            try {
+                String filePath = uploadFile();
+
+                current.setProfilPicture(filePath);
+            } catch (IOException ex) {
+                Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+                return null;
+            }
+        }
+
+        try {
+
+            MessageDigest md;
+            md = MessageDigest.getInstance("SHA-256");
+            md.update(current.getPassword().getBytes("UTF-8")); // Change this to "UTF-16" if needed
+            byte[] hash = md.digest();
+            StringBuffer hexString = new StringBuffer();
+
+            for (int i = 0; i < hash.length; i++) {
+                String hex = Integer.toHexString(0xff & hash[i]);
+                if (hex.length() == 1) {
+                    hexString.append('0');
+                }
+                hexString.append(hex);
+            }
+
+            String hashedPassword = hexString.toString();
+            current.setPassword(hashedPassword);
+
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         try {
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UserUpdated"));
