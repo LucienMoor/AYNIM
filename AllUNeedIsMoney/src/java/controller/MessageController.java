@@ -3,9 +3,12 @@ package controller;
 import entities.Message;
 import controller.util.JsfUtil;
 import controller.util.PaginationHelper;
+import entities.User;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.ResourceBundle;
+import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -16,13 +19,21 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
+
+
 
 @ManagedBean(name = "messageController")
 @SessionScoped
 public class MessageController implements Serializable {
 
+    @PersistenceContext(unitName = "AllUNeedIsMoneyPU")
+    private EntityManager em;
     private Message current;
     private DataModel items = null;
+    private int tmp=0;
     @EJB
     private controller.MessageFacade ejbFacade;
     private PaginationHelper pagination;
@@ -80,8 +91,11 @@ public class MessageController implements Serializable {
 
     public String create() {
         try {
+            List<User> dest = em.createNamedQuery("User.findByNickname").setParameter("nickname", "lucien").getResultList();
+            current.setUserid(dest.get(0).getId());
+            current.setSenderid(tmp);
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("MessageCreated"));
+            //JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("MessageCreated"));
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -151,6 +165,12 @@ public class MessageController implements Serializable {
             current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
         }
     }
+    
+    public void setUser(String userName)
+        {
+            List<User> sender = em.createNamedQuery("User.findByNickname").setParameter("nickname", userName).getResultList();
+            tmp=sender.get(0).getId();
+        }
 
     public DataModel getItems() {
         if (items == null) {
