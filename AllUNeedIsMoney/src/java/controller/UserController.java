@@ -16,10 +16,12 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 
 @ManagedBean(name = "userController")
 @SessionScoped
-public class UserController implements Serializable {
+public class UserController implements Serializable  {
 
     private User current;
     private DataModel items = null;
@@ -68,15 +70,11 @@ public class UserController implements Serializable {
 
     public String prepareView() {
         current = (User) getItems().getRowData();
+        //current = getFacade().find(1);
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
-    public String prepareProfil() {
-        current = (User) getFacade().find(this);
-        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "View";
-    }
     public String prepareCreate() {
         current = new User();
         selectedItemIndex = -1;
