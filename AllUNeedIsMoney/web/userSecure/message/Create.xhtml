@@ -17,7 +17,7 @@
                 #{messageController.setUser(request.remoteUser)}
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.CreateMessageDest}" for="userid" />
-                    <h:inputText title="#{bundle.CreateMessageDest}" required="true" requiredMessage="#{bundle.CreateMessageRequiredMessage_dest}"/>
+                    <h:inputText binding="#{destUser}" title="#{bundle.CreateMessageDest}" required="true" requiredMessage="#{bundle.CreateMessageRequiredMessage_dest}"/>
                     <h:outputLabel value="#{bundle.CreateMessageLabel_content}" for="content" />
                     <h:inputTextarea rows="4" cols="30" id="content" value="#{messageController.selected.content}" title="#{bundle.CreateMessageTitle_content}" required="true" requiredMessage="#{bundle.CreateMessageRequiredMessage_content}"/>
                     <h:outputLabel value="#{bundle.CreateMessageLabel_user}" for="user" />
@@ -26,7 +26,8 @@
                     </h:selectOneMenu>-->
                 </h:panelGrid>
                 <br />
-                <h:commandLink action="#{messageController.create}" value="#{bundle.CreateMessageSaveLink}" />
+                <h:commandLink action="#{messageController.create(destUser.value)}" value="#{bundle.CreateMessageSaveLink}">
+                </h:commandLink>>
                 <br />
                 <br />
                 <h:commandLink action="#{messageController.prepareList}" value="#{bundle.CreateMessageShowAllLink}" immediate="true"/>
