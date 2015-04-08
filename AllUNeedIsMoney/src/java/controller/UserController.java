@@ -1,5 +1,6 @@
 package controller;
 
+import com.sun.org.apache.xalan.internal.xsltc.runtime.BasisLibrary;
 import entities.User;
 import controller.util.JsfUtil;
 import controller.util.PaginationHelper;
@@ -19,6 +20,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.acl.Group;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -51,6 +53,8 @@ public class UserController implements Serializable  {
     private Part file;
     private User current;
     private DataModel items = null;
+    @PersistenceContext(unitName = "AllUNeedIsMoneyPU")
+    private EntityManager em;
     @EJB
     private controller.UserFacade ejbFacade;
     private PaginationHelper pagination;
@@ -98,13 +102,17 @@ public class UserController implements Serializable  {
         return "List";
     }
 
-    public String prepareView() {
+    public String prepareView() {        
         current = (User) getItems().getRowData();
-        //current = getFacade().find(1);
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
+    public String prepareMyView(String user)
+    {
+        current = (User) em.createNamedQuery("User.findByNickname").setParameter("nickname", user).getSingleResult();
+        return "/user/View";
+    }
     public String prepareCreate() {
         current = new User();
         selectedItemIndex = -1;

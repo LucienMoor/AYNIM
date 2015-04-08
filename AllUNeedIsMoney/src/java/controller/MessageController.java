@@ -78,6 +78,12 @@ public class MessageController implements Serializable {
         recreateModel();
         return "List";
     }
+    public List getUserItem(String userName)
+    {
+        User usr = (User) em.createNamedQuery("User.findByNickname").setParameter("nickname", userName).getSingleResult();
+        List<Message> msg = em.createNamedQuery("Message.findByUserid").setParameter("userid", usr.getId()).getResultList();
+        return msg;
+    }
 
     public String prepareView() {
         current = (Message) getItems().getRowData();
