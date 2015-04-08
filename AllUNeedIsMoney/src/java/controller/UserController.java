@@ -164,9 +164,8 @@ public class UserController implements Serializable {
 
         // Extract file name from content-disposition header of file part
         String fileName = getFileName(getFile());
-        System.out.println("***** fileName: " + fileName);
-
-        String basePath = "C:" + File.separator + "temp" + File.separator;
+        String basePath = this.getClass().getResource("/images").getPath()+"/../../../resources/images/";
+        System.out.println(basePath);
         File outputFilePath = new File(basePath + fileName);
 
         // Copy uploaded file to destination path
@@ -189,7 +188,7 @@ public class UserController implements Serializable {
             inputStream.close();
         }
 
-        return basePath + fileName;
+        return fileName;
     }
 
     public String prepareEdit() {
