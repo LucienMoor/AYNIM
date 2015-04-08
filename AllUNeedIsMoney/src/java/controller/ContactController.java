@@ -3,6 +3,7 @@ package controller;
 import entities.Contact;
 import controller.util.JsfUtil;
 import controller.util.PaginationHelper;
+import entities.User;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -16,11 +17,15 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 @ManagedBean(name = "contactController")
 @SessionScoped
 public class ContactController implements Serializable {
 
+    @PersistenceContext(unitName = "AllUNeedIsMoneyPU")
+    private EntityManager em;
     private Contact current;
     private DataModel items = null;
     @EJB
@@ -78,7 +83,7 @@ public class ContactController implements Serializable {
         return "Create";
     }
 
-    public String create() {
+    /*public String create() {
         try {
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ContactCreated"));
@@ -87,6 +92,30 @@ public class ContactController implements Serializable {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
         }
+    }*/
+    
+    public String create(String currentUser, String contactUser) {
+        try {
+            current = new Contact();
+            User user = (User) em.createNamedQuery("User.findByNickname").setParameter("nickname", currentUser).getSingleResult();
+            User contact = (User) em.createNamedQuery("User.findByNickname").setParameter("nickname", contactUser).getSingleResult();
+            
+            current.setUser(user);
+            current.setUserid(user.getId());
+            current.setContactid(contact.getId());
+            
+            getFacade().create(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ContactCreated"));
+            return "List";
+            //return null;
+        } catch (Exception e) {
+            System.out.println("*****************ERROR**********************");
+            System.out.println(e.getMessage());
+            System.out.println(e.getClass());
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            
+            return null;
+        }       
     }
 
     public String prepareEdit() {
