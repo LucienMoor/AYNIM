@@ -3,7 +3,9 @@ package controller;
 import entities.User;
 import controller.util.JsfUtil;
 import controller.util.PaginationHelper;
+import entities.Group1;
 import entities.Picture;
+import entities.UserGroup;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -14,12 +16,15 @@ import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.acl.Group;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.Resource;
 import javax.ejb.EJB;
+import javax.ejb.Stateful;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -32,7 +37,11 @@ import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
 import javax.faces.validator.ValidatorException;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.servlet.http.Part;
+import javax.transaction.Transactional;
+import javax.transaction.UserTransaction;
 
 
 @ManagedBean(name = "userController")
@@ -46,6 +55,10 @@ public class UserController implements Serializable  {
     private controller.UserFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    @PersistenceContext(unitName = "AllUNeedIsMoneyPU")
+    private EntityManager em;
+    @Resource
+    UserTransaction ut;
 
     public UserController() {
     }
@@ -132,15 +145,29 @@ public class UserController implements Serializable  {
 
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
 
         try {
             getFacade().create(current);
+            Group1 group = (Group1) em.createNamedQuery("Group1.findByGroupName").setParameter("groupname", "UserRole").getSingleResult();
+            UserGroup userGroup = new UserGroup();
+            userGroup.setNickname(current);
+            userGroup.setGroupname(group);
+            ut.begin();
+            em.persist(userGroup);
+            ut.commit();
+
+            System.out.println("User created");
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UserCreated"));
             return prepareCreate();
         } catch (Exception e) {
+            System.out.println("*****************ERROR**********************");
+            System.out.println(e.getMessage());
+            System.out.println(e.getClass());
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
         }

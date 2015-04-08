@@ -7,6 +7,7 @@ package entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -27,6 +28,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -45,6 +47,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "User.findByCountry", query = "SELECT u FROM User u WHERE u.country = :country"),
     @NamedQuery(name = "User.findByCity", query = "SELECT u FROM User u WHERE u.city = :city")})
 public class User implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "nickname")
+    private Collection<UserGroup> userGroupCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -92,8 +96,6 @@ public class User implements Serializable {
     private Message message;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Picture> picture = new ArrayList<Picture>();
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
-    private UserGroup userGroup;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     private Report report;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
@@ -212,14 +214,6 @@ public class User implements Serializable {
         this.picture = pictures;
     }
 
-    public UserGroup getUserGroup() {
-        return userGroup;
-    }
-
-    public void setUserGroup(UserGroup userGroup) {
-        this.userGroup = userGroup;
-    }
-
     public Report getReport() {
         return report;
     }
@@ -271,6 +265,19 @@ public class User implements Serializable {
 
     public void addPicture(Picture picture) {
        this.picture.add(picture);
+    }
+
+    @XmlTransient
+    public Collection<UserGroup> getUserGroupCollection() {
+        return userGroupCollection;
+    }
+
+    public void setUserGroupCollection(Collection<UserGroup> userGroupCollection) {
+        this.userGroupCollection = userGroupCollection;
+    }
+    
+    public void addUserGroup(UserGroup userGroup) {
+        this.userGroupCollection.add(userGroup);
     }
     
 }

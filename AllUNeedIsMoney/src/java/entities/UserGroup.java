@@ -13,11 +13,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -29,9 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "UserGroup.findAll", query = "SELECT u FROM UserGroup u"),
-    @NamedQuery(name = "UserGroup.findById", query = "SELECT u FROM UserGroup u WHERE u.id = :id"),
-    @NamedQuery(name = "UserGroup.findByUserid", query = "SELECT u FROM UserGroup u WHERE u.userid = :userid"),
-    @NamedQuery(name = "UserGroup.findByGroupid", query = "SELECT u FROM UserGroup u WHERE u.groupid = :groupid")})
+    @NamedQuery(name = "UserGroup.findById", query = "SELECT u FROM UserGroup u WHERE u.id = :id")})
 public class UserGroup implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -39,32 +36,18 @@ public class UserGroup implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "userid")
-    private int userid;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "groupid")
-    private int groupid;
-    @JoinColumn(name = "id", referencedColumnName = "id", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private User user;
-    @JoinColumn(name = "id", referencedColumnName = "id", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private Group1 group1;
+    @JoinColumn(name = "nickname", referencedColumnName = "nickname")
+    @ManyToOne(optional = false)
+    private User nickname;
+    @JoinColumn(name = "groupname", referencedColumnName = "groupname")
+    @ManyToOne(optional = false)
+    private Group1 groupname;
 
     public UserGroup() {
     }
 
     public UserGroup(Integer id) {
         this.id = id;
-    }
-
-    public UserGroup(Integer id, int userid, int groupid) {
-        this.id = id;
-        this.userid = userid;
-        this.groupid = groupid;
     }
 
     public Integer getId() {
@@ -75,36 +58,20 @@ public class UserGroup implements Serializable {
         this.id = id;
     }
 
-    public int getUserid() {
-        return userid;
+    public User getNickname() {
+        return nickname;
     }
 
-    public void setUserid(int userid) {
-        this.userid = userid;
+    public void setNickname(User nickname) {
+        this.nickname = nickname;
     }
 
-    public int getGroupid() {
-        return groupid;
+    public Group1 getGroupname() {
+        return groupname;
     }
 
-    public void setGroupid(int groupid) {
-        this.groupid = groupid;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Group1 getGroup1() {
-        return group1;
-    }
-
-    public void setGroup1(Group1 group1) {
-        this.group1 = group1;
+    public void setGroupname(Group1 groupname) {
+        this.groupname = groupname;
     }
 
     @Override
