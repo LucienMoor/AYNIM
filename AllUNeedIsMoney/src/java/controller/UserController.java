@@ -32,6 +32,8 @@ import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 
 import javax.faces.validator.ValidatorException;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.servlet.http.Part;
 
 
@@ -39,6 +41,9 @@ import javax.servlet.http.Part;
 @SessionScoped
 public class UserController implements Serializable  {
 
+    
+    @PersistenceContext(unitName = "AllUNeedIsMoneyPU")
+    private EntityManager em;
     private Part file;
     private User current;
     private DataModel items = null;
@@ -50,6 +55,11 @@ public class UserController implements Serializable  {
     public UserController() {
     }
 
+    public String findNickname(int index)
+    {
+        User usr = (User) em.createNamedQuery("User.findById").setParameter("id", index).getSingleResult();
+        return usr.getNickname();
+    }
     public User getSelected() {
         if (current == null) {
             current = new User();

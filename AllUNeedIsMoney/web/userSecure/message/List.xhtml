@@ -17,24 +17,12 @@
                     <h:outputText value="#{messageController.pagination.pageFirstItem + 1}..#{messageController.pagination.pageLastItem + 1}/#{messageController.pagination.itemsCount}"/>&nbsp;
                     <h:commandLink action="#{messageController.previous}" value="#{bundle.Previous} #{messageController.pagination.pageSize}" rendered="#{messageController.pagination.hasPreviousPage}"/>&nbsp;
                     <h:commandLink action="#{messageController.next}" value="#{bundle.Next} #{messageController.pagination.pageSize}" rendered="#{messageController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{messageController.getUserItem(request.remoteUser)}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMessageTitle_id}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMessageTitle_userid}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.userid}"/>
-                        </h:column>
+                    <h:dataTable value="#{messageController.getUserItem(request.remoteUser)}" var="item" class="table table-bordered">
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMessageTitle_senderid}"/>
                             </f:facet>
-                            <h:outputText value="#{item.senderid}"/>
+                            <h:outputText value="#{userController.findNickname(item.senderid)}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
@@ -44,13 +32,7 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListMessageTitle_user}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.user}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
+                                <h:outputText value="Actions"/>
                             </f:facet>
                             <h:commandLink action="#{messageController.prepareView}" value="#{bundle.ListMessageViewLink}"/>
                             <h:outputText value=" "/>
