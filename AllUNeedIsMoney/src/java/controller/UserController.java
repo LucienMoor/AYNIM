@@ -30,12 +30,14 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+
 import javax.faces.validator.ValidatorException;
 import javax.servlet.http.Part;
 
+
 @ManagedBean(name = "userController")
 @SessionScoped
-public class UserController implements Serializable {
+public class UserController implements Serializable  {
 
     private Part file;
     private User current;
@@ -85,15 +87,11 @@ public class UserController implements Serializable {
 
     public String prepareView() {
         current = (User) getItems().getRowData();
+        //current = getFacade().find(1);
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
-    public String prepareProfil() {
-        current = (User) getFacade().find(this);
-        //selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "View";
-    }
     public String prepareCreate() {
         current = new User();
         selectedItemIndex = -1;
