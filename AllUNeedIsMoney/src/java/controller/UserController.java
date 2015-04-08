@@ -56,14 +56,10 @@ public class UserController implements Serializable  {
     private Part file;
     private User current;
     private DataModel items = null;
-    @PersistenceContext(unitName = "AllUNeedIsMoneyPU")
-    private EntityManager em;
     @EJB
     private controller.UserFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
-    @PersistenceContext(unitName = "AllUNeedIsMoneyPU")
-    private EntityManager em;
     @Resource
     UserTransaction ut;
 
