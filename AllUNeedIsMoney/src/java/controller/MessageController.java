@@ -7,12 +7,14 @@ import entities.User;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
@@ -41,7 +43,7 @@ public class MessageController implements Serializable {
 
     public MessageController() {
     }
-
+    
     public Message getSelected() {
         if (current == null) {
             current = new Message();
@@ -76,6 +78,12 @@ public class MessageController implements Serializable {
         recreateModel();
         return "List";
     }
+    public List getUserItem(String userName)
+    {
+        User usr = (User) em.createNamedQuery("User.findByNickname").setParameter("nickname", userName).getSingleResult();
+        List<Message> msg = em.createNamedQuery("Message.findByUserid").setParameter("userid", usr.getId()).getResultList();
+        return msg;
+    }
 
     public String prepareView() {
         current = (Message) getItems().getRowData();
@@ -89,9 +97,12 @@ public class MessageController implements Serializable {
         return "Create";
     }
 
-    public String create() {
+    public String create(String destUser) {
         try {
-            List<User> dest = em.createNamedQuery("User.findByNickname").setParameter("nickname", "lucien").getResultList();
+            FacesContext fc = FacesContext.getCurrentInstance();
+            Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
+ 
+            List<User> dest = em.createNamedQuery("User.findByNickname").setParameter("nickname", destUser).getResultList();
             current.setUserid(dest.get(0).getId());
             current.setSenderid(tmp);
             getFacade().create(current);
