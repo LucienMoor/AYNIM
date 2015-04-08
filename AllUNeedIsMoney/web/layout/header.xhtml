@@ -43,10 +43,12 @@
                             </li>
                             <li><a href="/AllUNeedIsMoney/userSecure/contact/List.xhtml">Contact</a></li>
                             <li class="label">score</li>
-                            <li><a href="#">#{request.remoteUser}</a></li></c:when>
+                            <li><h:form>
+                                    <h:commandLink action="#{authenticationController.logout}">#{request.remoteUser}</h:commandLink>
+                                </h:form></li></c:when>
                             <c:otherwise><li><a href="/AllUNeedIsMoney/login.xhtml">Login/Sign in </a></li></c:otherwise>
                         </c:choose>
-                        
+                            
                         <li></li>
                     </ul>
                     
