@@ -6,6 +6,7 @@ import controller.util.PaginationHelper;
 import entities.User;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -117,7 +118,20 @@ public class ContactController implements Serializable {
             return null;
         }       
     }
-
+    
+    public List<Contact> getContact(String user)
+    {
+        User currentUser = (User) em.createNamedQuery("User.findByNickname").setParameter("nickname", user).getSingleResult();
+        List<Contact> contact = em.createNamedQuery("Contact.findByUserid").setParameter("userid", currentUser.getId()).getResultList();
+        return contact;
+    }
+    public boolean checkIfExist(String currentUser, String contactUser)
+    {
+       User user = (User) em.createNamedQuery("User.findByNickname").setParameter("nickname", currentUser).getSingleResult();
+       User contact = (User) em.createNamedQuery("User.findByNickname").setParameter("nickname", contactUser).getSingleResult();
+       List<Contact> contactExist = em.createNamedQuery("Contact.findByUseridAndContactid").setParameter("userid", user.getId()).setParameter("contactid", contact.getId()).getResultList();
+       return !contactExist.isEmpty();
+    }
     public String prepareEdit() {
         current = (Contact) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
