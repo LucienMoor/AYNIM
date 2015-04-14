@@ -64,6 +64,8 @@
                             <h:commandLink action="#{userController.prepareEdit}" value="#{bundle.ListUserEditLink}"/>
                             <h:outputText value=" "/>
                             <h:commandLink action="#{userController.destroy}" value="#{bundle.ListUserDestroyLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{contactController.create(request.remoteUser,item.nickname)}" value="#{bundle.ListAddMeyLink}" />
                         </h:column>
                     </h:dataTable>
                 </h:panelGroup>

@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Contact.findAll", query = "SELECT c FROM Contact c"),
     @NamedQuery(name = "Contact.findById", query = "SELECT c FROM Contact c WHERE c.id = :id"),
     @NamedQuery(name = "Contact.findByUserid", query = "SELECT c FROM Contact c WHERE c.userid = :userid"),
+    @NamedQuery(name = "Contact.findByUseridAndContactid", query = "SELECT c FROM Contact c WHERE c.userid = :userid AND c.contactid = :contactid"),
     @NamedQuery(name = "Contact.findByContactid", query = "SELECT c FROM Contact c WHERE c.contactid = :contactid")})
 public class Contact implements Serializable {
     private static final long serialVersionUID = 1L;
