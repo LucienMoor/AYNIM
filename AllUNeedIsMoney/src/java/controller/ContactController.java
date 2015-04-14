@@ -6,6 +6,7 @@ import controller.util.PaginationHelper;
 import entities.User;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
@@ -77,7 +78,7 @@ public class ContactController implements Serializable {
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
-
+    
     public String prepareCreate() {
         current = new Contact();
         selectedItemIndex = -1;
@@ -119,14 +120,29 @@ public class ContactController implements Serializable {
         }       
     }
     
-    public List<Contact> getContact(String user)
+    public List<User> getContact(String user)
     {
         User currentUser = (User) em.createNamedQuery("User.findByNickname").setParameter("nickname", user).getSingleResult();
-        List<Contact> contact = em.createNamedQuery("Contact.findByUserid").setParameter("userid", currentUser.getId()).getResultList();
-        return contact;
+        List<User> listUserContact = new ArrayList<User>();
+        User contactUser = new User();
+        List<Contact> listContact = em.createNamedQuery("Contact.findByUserid").setParameter("userid", currentUser.getId()).getResultList();
+        List<Contact> listUser = em.createNamedQuery("Contact.findByContactid").setParameter("contactid", currentUser.getId()).getResultList();
+        for (Contact contact : listUser) {
+            contactUser = (User) em.createNamedQuery("User.findById").setParameter("id", contact.getUserid()).getSingleResult();
+            listUserContact.add(contactUser);
+        }
+        for (Contact contact : listContact) {
+            contactUser = (User) em.createNamedQuery("User.findById").setParameter("id", contact.getContactid()).getSingleResult();
+            listUserContact.add(contactUser);
+        }
+        return listUserContact;
     }
+
     public boolean checkIfExist(String currentUser, String contactUser)
     {
+       System.out.println("Hello");
+       System.out.println(currentUser);
+       System.out.println("contact:" + contactUser);
        User user = (User) em.createNamedQuery("User.findByNickname").setParameter("nickname", currentUser).getSingleResult();
        User contact = (User) em.createNamedQuery("User.findByNickname").setParameter("nickname", contactUser).getSingleResult();
        List<Contact> contactExist = em.createNamedQuery("Contact.findByUseridAndContactid").setParameter("userid", user.getId()).setParameter("contactid", contact.getId()).getResultList();

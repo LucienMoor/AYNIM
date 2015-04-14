@@ -1,44 +1,54 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition template="/template.xhtml">
-        <ui:define name="title">
-            <h:outputText value="#{bundle.ViewContactTitle}"></h:outputText>
-        </ui:define>
-        <ui:define name="body">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewContactLabel_id}"/>
-                    <h:outputText value="#{contactController.selected.id}" title="#{bundle.ViewContactTitle_id}"/>
-                    <h:outputText value="#{bundle.ViewContactLabel_userid}"/>
-                    <h:outputText value="#{contactController.selected.userid}" title="#{bundle.ViewContactTitle_userid}"/>
-                    <h:outputText value="#{bundle.ViewContactLabel_contactid}"/>
-                    <h:outputText value="#{contactController.selected.contactid}" title="#{bundle.ViewContactTitle_contactid}"/>
-                    <h:outputText value="#{bundle.ViewContactLabel_user}"/>
-                    <h:outputText value="#{contactController.selected.user}" title="#{bundle.ViewContactTitle_user}"/>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{contactController.destroyAndView}" value="#{bundle.ViewContactDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewContactEditLink}"/>
-                <br />
-                <h:commandLink action="#{contactController.prepareCreate}" value="#{bundle.ViewContactCreateLink}" />
-                <br />
-                <h:commandLink action="#{contactController.prepareList}" value="#{bundle.ViewContactShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ViewContactIndexLink}"/>
-
-            </h:form>
-        </ui:define>
-    </ui:composition>
-
+    <body>
+        <ui:composition template="/layout/commonLayout.xhtml">
+            <ui:define name="content">
+                <div class="avatar" id="left-part">
+                    <p>
+                        <h:graphicImage library="images" name="#{userController.selected.profilPicture}"/>
+                    </p>
+                    <p>
+                        <h:button class="btn-info" value="See more picture"/>
+                    </p>
+                    <p>
+                        <h:button class="btn-danger" value="Delete"/>
+                        <h:button class="btn-info" value="Edit"/>
+                    </p>
+                    <p>
+                        <label>Score</label>   
+                        <h:button class="btn-info" value="+"/>
+                    </p>
+                </div>
+                <div id="center-part">
+                    <div id="center-top-part"> 
+                        <span>
+                            <p>
+                                <h:outputText value="#{userController.selected.nickname}" title="#{bundle.ViewUserTitle_nickname}"/>
+                            </p>
+                            <p>
+                                <h:outputText value="#{userController.selected.birthday}" title="#{bundle.ViewUserTitle_birthday}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:outputText>
+                            </p>
+                            <p>
+                                <h:outputText value="#{userController.selected.city}" title="#{bundle.ViewUserTitle_city}"/>
+                            </p>
+                            <p>
+                                <h:outputText value="#{userController.selected.country}" title="#{bundle.ViewUserTitle_country}"/>
+                            </p>
+                        </span>
+                        <div id="status">
+                            <h:outputText value="#{userController.selected.description}" title="#{bundle.ViewUserTitle_description}"/>
+                        </div>   
+                    </div>
+                </div>
+            </ui:define>
+    	</ui:composition>
+    </body>
 </html>
