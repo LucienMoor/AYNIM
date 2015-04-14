@@ -28,9 +28,7 @@
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
-                            <h:commandLink action="#{contactController.prepareView}" value="#{bundle.ListContactViewLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{contactController.prepareEdit}" value="#{bundle.ListContactEditLink}"/>
+                            <h:commandLink action="#{userController.prepareMyView(item.nickname)}" value="#{bundle.ListContactViewLink}"/>
                             <h:outputText value=" "/>
                             <h:commandLink action="#{contactController.destroy}" value="#{bundle.ListContactDestroyLink}"/>
                         </h:column>

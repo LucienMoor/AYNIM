@@ -117,6 +117,7 @@ public class UserController implements Serializable  {
         current = (User) em.createNamedQuery("User.findByNickname").setParameter("nickname", user).getSingleResult();
         return "/user/View";
     }
+
     public String prepareCreate() {
         current = new User();
         selectedItemIndex = -1;
