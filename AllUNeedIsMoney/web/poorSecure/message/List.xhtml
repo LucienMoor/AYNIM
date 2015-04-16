@@ -3,8 +3,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-
+     
     <ui:composition template="/layout/commonLayout.xhtml">
     	<ui:define name="content">
             <h1><h:outputText value="#{bundle.ListMessageTitle}"></h:outputText></h1>
@@ -14,9 +16,6 @@
                 </h:panelGroup>
                 <h:outputText escape="false" value="#{bundle.ListMessageEmpty}" rendered="#{messageController.items.rowCount == 0}"/>
                 <h:panelGroup rendered="#{messageController.items.rowCount > 0}">
-                    <h:outputText value="#{messageController.pagination.pageFirstItem + 1}..#{messageController.pagination.pageLastItem + 1}/#{messageController.pagination.itemsCount}"/>&nbsp;
-                    <h:commandLink action="#{messageController.previous}" value="#{bundle.Previous} #{messageController.pagination.pageSize}" rendered="#{messageController.pagination.hasPreviousPage}"/>&nbsp;
-                    <h:commandLink action="#{messageController.next}" value="#{bundle.Next} #{messageController.pagination.pageSize}" rendered="#{messageController.pagination.hasNextPage}"/>&nbsp;
                     <h:dataTable value="#{messageController.getUserItem(request.remoteUser)}" var="item" class="table table-bordered">
                         <h:column>
                             <f:facet name="header">
@@ -27,8 +26,9 @@
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMessageTitle_content}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.content}"/>
+                            </f:facet> 
+                            <h:outputText value="${fn:replace(item.content, 
+                                'SAUT_LIGNE', '&lt;br/&gt;')}"  escape="false"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
@@ -39,6 +39,9 @@
                             <h:commandLink action="#{messageController.prepareEdit}" value="#{bundle.ListMessageEditLink}"/>
                             <h:outputText value=" "/>
                             <h:commandLink action="#{messageController.destroy}" value="#{bundle.ListMessageDestroyLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{messageController.prepareReply(item.senderid,item.content)}" value="Reply"/>
+                            
                         </h:column>
                     </h:dataTable>
                 </h:panelGroup>

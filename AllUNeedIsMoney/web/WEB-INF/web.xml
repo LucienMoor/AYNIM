@@ -34,15 +34,30 @@
         </auth-constraint>
     </security-constraint>
     <security-constraint>
-        <display-name>UserConstraint</display-name>
+        <display-name>PoorConstraint</display-name>
         <web-resource-collection>
-            <web-resource-name>user</web-resource-name>
+            <web-resource-name>poor</web-resource-name>
             <description/>
-            <url-pattern>/userSecure/*</url-pattern>
+            <url-pattern>/poorSecure/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
             <description/>
-            <role-name>UserRole</role-name>
+            <role-name>PoorRole</role-name>
+            <role-name>AdminRole</role-name>
+            <role-name>RichRole</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <display-name>RichConstraint</display-name>
+        <web-resource-collection>
+            <web-resource-name>rich</web-resource-name>
+            <description/>
+            <url-pattern>/richSecure/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>RichRole</role-name>
+            <role-name>AdminRole</role-name>
         </auth-constraint>
     </security-constraint>
     <login-config>
@@ -59,7 +74,11 @@
     </security-role>
     <security-role>
         <description/>
-        <role-name>UserRole</role-name>
+        <role-name>PoorRole</role-name>
+    </security-role>
+    <security-role>
+        <description/>
+        <role-name>RichRole</role-name>
     </security-role>
     <resource-ref>
         <res-ref-name>jdbc/AYNIM</res-ref-name>

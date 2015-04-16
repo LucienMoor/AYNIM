@@ -9,4 +9,28 @@
 		<var>bundle</var>
 	   </resource-bundle>
      </application>
+    <navigation-rule>
+        <from-view-id>/poorSecure/message/List.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{messageController.prepareCreate}</from-action>
+            <from-outcome>newMessage</from-outcome>
+            <to-view-id>/richSecure/message/Create.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/poorSecure/contact/List.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{contactController.prepareCreate}</from-action>
+            <from-outcome>newContact</from-outcome>
+            <to-view-id>/richSecure/contact/Create.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+        <navigation-rule>
+        <from-view-id>/poorSecure/message/List.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{contactController.prepareReply}</from-action>
+            <from-outcome>Reply</from-outcome>
+            <to-view-id>/poorSecure/message/Reply.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>

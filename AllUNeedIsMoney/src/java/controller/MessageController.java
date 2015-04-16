@@ -36,6 +36,8 @@ public class MessageController implements Serializable {
     private Message current;
     private DataModel items = null;
     private int tmp=0;
+    private int toAnswer=0;
+    private String oldContent="";
     @EJB
     private controller.MessageFacade ejbFacade;
     private PaginationHelper pagination;
@@ -78,11 +80,23 @@ public class MessageController implements Serializable {
         recreateModel();
         return "List";
     }
-    public List getUserItem(String userName)
+    
+    public String prepareReply(int destID,String _oldContent){
+        toAnswer = destID;
+        oldContent = _oldContent;
+        recreateModel();
+        return "Reply";
+    }
+    
+    public int getToAnswer(){
+        return toAnswer;
+    }
+    public DataModel getUserItem(String userName)
     {
         User usr = (User) em.createNamedQuery("User.findByNickname").setParameter("nickname", userName).getSingleResult();
         List<Message> msg = em.createNamedQuery("Message.findByUserid").setParameter("userid", usr.getId()).getResultList();
-        return msg;
+        items= new ListDataModel(msg);
+        return items;
     }
 
     public String prepareView() {
@@ -91,20 +105,36 @@ public class MessageController implements Serializable {
         return "View";
     }
 
+
     public String prepareCreate() {
         current = new Message();
         selectedItemIndex = -1;
-        return "Create";
+        return "newMessage";
     }
 
     public String create(String destUser) {
         try {
-            FacesContext fc = FacesContext.getCurrentInstance();
-            Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
- 
-            List<User> dest = em.createNamedQuery("User.findByNickname").setParameter("nickname", destUser).getResultList();
-            current.setUserid(dest.get(0).getId());
+            System.out.println("destUser: "+destUser);
+            if(destUser==null || destUser=="")
+            {
+                System.out.println("toAnswer: "+toAnswer);
+                current.setUserid(toAnswer);
+                current.setContent(current.getContent() + "SAUT_LIGNE SAUT_LIGNE ----- old ----- SAUT_LIGNE SAUT_LIGNE" + oldContent);
+                current.setContent(current.getContent().replaceAll("(\\r|\\n)", "SAUT_LIGNE"));
+            }
+            else
+            {
+                FacesContext fc = FacesContext.getCurrentInstance();
+                Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
+
+                List<User> dest = em.createNamedQuery("User.findByNickname").setParameter("nickname", destUser).getResultList();
+                current.setUserid(dest.get(0).getId());
+            }
+
             current.setSenderid(tmp);
+            System.out.println(current.getSenderid());
+            System.out.println(current.getContent());
+            System.out.println(current.getUserid());
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("MessageCreated"));
             return prepareCreate();

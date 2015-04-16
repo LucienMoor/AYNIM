@@ -9,6 +9,14 @@
     <role-name>UserRole</role-name>
     <group-name>UserRole</group-name>
   </security-role-mapping>
+  <security-role-mapping>
+    <role-name>PoorRole</role-name>
+    <group-name>PoorRole</group-name>
+  </security-role-mapping>
+  <security-role-mapping>
+    <role-name>RichRole</role-name>
+    <group-name>RichRole</group-name>
+  </security-role-mapping>
   <class-loader delegate="true"/>
   <jsp-config>
     <property name="keepgenerated" value="true">
