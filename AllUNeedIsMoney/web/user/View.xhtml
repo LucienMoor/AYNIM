@@ -16,8 +16,12 @@
                     </p>
                     
                     <p>
-                        <h:button rendered="${userController.isCurrentUser(userController.selected.nickname, request.remoteUser)==true}" class="btn-danger" value="Delete"/>
-                        <h:button rendered="${userController.isCurrentUser(userController.selected.nickname, request.remoteUser)==true}" class="btn-info" value="Edit"/>
+                        <c:if test="#{not empty request.remoteUser}">
+                            <h:form>
+                                <h:commandLink rendered="${userController.isCurrentUser(userController.selected.nickname, request.remoteUser)==true}" action="#{userController.destroyAndView}" value="#{bundle.ListUserDestroyLink}" class="btn-danger"/>
+                                <h:commandLink rendered="${userController.isCurrentUser(userController.selected.nickname, request.remoteUser)==true}" action="/poorSecure/user/Edit" value="#{bundle.ListUserEditLink}" class="btn-info"/>
+                            </h:form>
+                        </c:if>
                     </p>
                     <p>
                         <label>Score</label> 
@@ -31,22 +35,22 @@
                     <div id="center-top-part"> 
                         <span>
                             <p>
-                                <h:outputText value="#{userController.selected.nickname}" title="#{bundle.ViewUserTitle_nickname}"/>
+                                <h:outputText id="nickname" value="#{userController.selected.nickname}" title="#{bundle.ViewUserTitle_nickname}"/>
                             </p>
                             <p>
-                                <h:outputText value="#{userController.selected.birthday}" title="#{bundle.ViewUserTitle_birthday}">
+                                <h:outputText id="birthday" value="#{userController.selected.birthday}" title="#{bundle.ViewUserTitle_birthday}">
                                     <f:convertDateTime pattern="MM/dd/yyyy" />
                                 </h:outputText>
                             </p>
                             <p>
-                                <h:outputText value="#{userController.selected.city}" title="#{bundle.ViewUserTitle_city}"/>
+                                <h:outputText id="city" value="#{userController.selected.city}" title="#{bundle.ViewUserTitle_city}"/>
                             </p>
                             <p>
-                                <h:outputText value="#{userController.selected.country}" title="#{bundle.ViewUserTitle_country}"/>
+                                <h:outputText id="country" value="#{userController.selected.country}" title="#{bundle.ViewUserTitle_country}"/>
                             </p>
                         </span>
                         <div id="status">
-                            <h:outputText value="#{userController.selected.description}" title="#{bundle.ViewUserTitle_description}"/>
+                            <h:outputText id="description" value="#{userController.selected.description}" title="#{bundle.ViewUserTitle_description}"/>
                         </div>   
                     </div>
                 </div>

@@ -60,20 +60,25 @@
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
+                            
                             <h:commandLink action="#{userController.prepareView}" value="#{bundle.ListUserViewLink}"/>
                             <h:outputText value=" "/>
-                            <h:panelGroup rendered="#{request.isUserInRole('AdminRole') || item.nickname==request.remoteUser}">
-                                <h:commandLink action="#{userController.prepareEdit}" value="#{bundle.ListUserEditLink}"/>
-                                <h:outputText value=" "/>
-                                <h:commandLink action="#{userController.destroy}" value="#{bundle.ListUserDestroyLink}"/>
-                                <h:outputText value=" "/>      
-                            </h:panelGroup>
+                            <c:if test="#{not empty request.remoteUser}">
+                                <h:panelGroup rendered="#{request.isUserInRole('AdminRole') || item.nickname==request.remoteUser}">
+                                    <h:commandLink action="#{userController.prepareEdit}" value="#{bundle.ListUserEditLink}"/>
+                                    <h:outputText value=" "/>
+                                    <h:commandLink action="#{userController.destroy}" value="#{bundle.ListUserDestroyLink}"/>
+                                    <h:outputText value=" "/>          
+                                </h:panelGroup>
                             <h:outputText value=" "/>
                             <h:commandLink rendered="${contactController.checkIfExist(request.remoteUser,item.nickname)==false}" action="#{contactController.create(request.remoteUser,item.nickname)}" value="#{bundle.ListAddMeyLink}">
                             <f:actionListener binding="#{userController.addScore(item)}" />
                             </h:commandLink>
                             <h:outputText value=" "/>
                             <h:commandLink rendered="#{request.isUserInRole('AdminRole')}" action="#{userController.prepareRoleEdition}" value="Change Rich / Poor"/>
+                                <h:outputText value=" "/>
+                                <h:commandLink rendered="#{request.isUserInRole('AdminRole')}" action="#{userController.prepareRoleEdition}" value="Change Rich / Poor"/>
+                            </c:if>
                         </h:column>
                     </h:dataTable>
                 </h:panelGroup>

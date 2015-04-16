@@ -202,14 +202,13 @@ public class UserController implements Serializable  {
         
     }
     
-    public String search()
+    public String search(String userSearch)
     {
-        FacesContext fc = FacesContext.getCurrentInstance();
-        Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
-        String search = params.get("search");
-        System.out.println(search);
-        current = (User) em.createNamedQuery("User.findBySearch").setParameter("nickname", "%"+search+"%").getSingleResult();
-        return "user/view";
+        
+        System.out.println(userSearch);
+        List<User> results = em.createNamedQuery("User.findBySearch").setParameter("nickname", "%"+userSearch+"%").getResultList();
+        items= new ListDataModel(results);
+        return "List";
     }
 
     private String getFileName(Part part) {
@@ -259,7 +258,7 @@ public class UserController implements Serializable  {
     public String prepareEdit() {
         current = (User) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "Edit";
+        return "/poorSecure/user/Edit.xhtml";
     }
 
     public String update() {
@@ -302,7 +301,7 @@ public class UserController implements Serializable  {
         try {
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UserUpdated"));
-            return "View";
+            return "/user/View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
@@ -461,7 +460,7 @@ public class UserController implements Serializable  {
         }
     }
     
-    public void madeRich()
+    public void makeRich()
     {
         Group1 group = (Group1) em.createNamedQuery("Group1.findByGroupName").setParameter("groupname", "RichRole").getSingleResult();
         UserGroup userGroup = (UserGroup) em.createNamedQuery("UserGroup.findByNickname").setParameter("nickname", current).getSingleResult();
@@ -477,7 +476,7 @@ public class UserController implements Serializable  {
         }
     }
     
-    public void madePoor()
+    public void makePoor()
     {
         Group1 group = (Group1) em.createNamedQuery("Group1.findByGroupName").setParameter("groupname", "PoorRole").getSingleResult();
         UserGroup userGroup = (UserGroup) em.createNamedQuery("UserGroup.findByNickname").setParameter("nickname", current).getSingleResult();

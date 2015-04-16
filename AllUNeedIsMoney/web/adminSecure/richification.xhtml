@@ -10,7 +10,7 @@
     <ui:composition template="/layout/commonLayout.xhtml">
         <ui:define name="content">
 
-            <h:outputText value="Made a user rich $$$"></h:outputText>
+            <h:outputText value="Make a user rich $$$"></h:outputText>
             
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
@@ -18,10 +18,10 @@
             <h:form id="form" enctype="multipart/form-data">
                   
                 <c:if test="${userController.isRich}">
-                <h:commandLink action="#{userController.madePoor}" value="Made User poor" />
+                <h:commandLink action="#{userController.makePoor}" value="Make User poor" />
                 </c:if>
                 <c:if test="${!userController.isRich}">
-                                    <h:commandLink action="#{userController.madeRich}" value="Made User rich" />
+                                    <h:commandLink action="#{userController.makeRich}" value="Make User rich" />
                 </c:if>
                 <br />
                 

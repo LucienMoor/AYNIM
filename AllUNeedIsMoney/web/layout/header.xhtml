@@ -23,8 +23,8 @@
                 <div class="navbar-collapse collapse">
                     <h:form class="navbar-form navbar-right">   
                         <div class="icon-addon addon-md">
-                            <h:inputText class="form-control" id="search" />
-                            <h:commandLink action="#{userController.search()}">
+                            <h:inputText class="form-control" binding="#{search}" />
+                            <h:commandLink id="searchButton" action="#{userController.search(search.value)}">
                                 <i class="glyphicon glyphicon-search"></i>
                             </h:commandLink>
                         </div>
