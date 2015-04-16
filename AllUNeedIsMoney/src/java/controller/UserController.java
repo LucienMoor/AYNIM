@@ -186,6 +186,15 @@ public class UserController implements Serializable  {
         }
     }
     
+    public boolean isCurrentUser(String user, String currentUser)
+    {
+        User leUser = (User) em.createNamedQuery("User.findByNickname").setParameter("nickname", user).getSingleResult();
+        User leCurrentUser = (User) em.createNamedQuery("User.findByNickname").setParameter("nickname", currentUser).getSingleResult();
+        
+        return leUser.getId()==leCurrentUser.getId();
+        
+    }
+    
     public String search()
     {
         FacesContext fc = FacesContext.getCurrentInstance();

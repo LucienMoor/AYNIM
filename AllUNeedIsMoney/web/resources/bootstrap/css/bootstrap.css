@@ -6567,13 +6567,11 @@ button.close {
  }
  
 #center-part {
-     border: 1px solid #000;
      left: 15%;
      
  }
  
  #center-top-part{
-      border: 1px solid red;
       top: 20%;
  }
 
