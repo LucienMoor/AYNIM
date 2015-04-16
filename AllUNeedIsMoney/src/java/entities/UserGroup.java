@@ -28,7 +28,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "UserGroup.findAll", query = "SELECT u FROM UserGroup u"),
-    @NamedQuery(name = "UserGroup.findById", query = "SELECT u FROM UserGroup u WHERE u.id = :id")})
+    @NamedQuery(name = "UserGroup.findById", query = "SELECT u FROM UserGroup u WHERE u.id = :id"),
+    @NamedQuery(name = "UserGroup.findByNickname", query = "SELECT u FROM UserGroup u WHERE u.nickname = :nickname")})
 public class UserGroup implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

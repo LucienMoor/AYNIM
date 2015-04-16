@@ -111,6 +111,12 @@ public class UserController implements Serializable  {
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
+    
+    public String prepareRoleEdition() {        
+        current = (User) getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        return "/adminSecure/richification.xhtml";
+    }
 
     public String prepareMyView(String user)
     {
@@ -165,7 +171,7 @@ public class UserController implements Serializable  {
 
         try {
             getFacade().create(current);
-            Group1 group = (Group1) em.createNamedQuery("Group1.findByGroupName").setParameter("groupname", "UserRole").getSingleResult();
+            Group1 group = (Group1) em.createNamedQuery("Group1.findByGroupName").setParameter("groupname", "PoorRole").getSingleResult();
             UserGroup userGroup = new UserGroup();
             userGroup.setNickname(current);
             userGroup.setGroupname(group);
@@ -424,7 +430,7 @@ public class UserController implements Serializable  {
         if (file.getSize() > 1024) {
             msgs.add(new FacesMessage("file too big"));
         }
-
+        System.out.println(file.getContentType());
         if (!"image".equals(file.getContentType())) {
             msgs.add(new FacesMessage("not an image"));
         }
@@ -432,5 +438,42 @@ public class UserController implements Serializable  {
             throw new ValidatorException(msgs);
         }
     }
-
+    
+    public void madeRich()
+    {
+        Group1 group = (Group1) em.createNamedQuery("Group1.findByGroupName").setParameter("groupname", "RichRole").getSingleResult();
+        UserGroup userGroup = (UserGroup) em.createNamedQuery("UserGroup.findByNickname").setParameter("nickname", current).getSingleResult();
+        userGroup.setGroupname(group);
+        try {
+        ut.begin();
+           em.merge(userGroup);
+        ut.commit();
+        }
+        catch(Exception e)
+        {
+            
+        }
+    }
+    
+    public void madePoor()
+    {
+        Group1 group = (Group1) em.createNamedQuery("Group1.findByGroupName").setParameter("groupname", "PoorRole").getSingleResult();
+        UserGroup userGroup = (UserGroup) em.createNamedQuery("UserGroup.findByNickname").setParameter("nickname", current).getSingleResult();
+        userGroup.setGroupname(group);
+        try {
+            ut.begin();
+               em.merge(userGroup);
+            ut.commit();
+        }
+        catch(Exception e)
+        {
+            
+        }
+    }
+    
+    public boolean getIsRich()
+    {
+        UserGroup userGroup = (UserGroup) em.createNamedQuery("UserGroup.findByNickname").setParameter("nickname", current).getSingleResult();
+        return userGroup.getGroupname().getGroupname().equals("RichRole");
+    }
 }
