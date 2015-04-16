@@ -17,7 +17,7 @@
                     <h:outputText value="#{contactController.pagination.pageFirstItem + 1}..#{contactController.pagination.pageLastItem + 1}/#{contactController.pagination.itemsCount}"/>&nbsp;
                     <h:commandLink action="#{contactController.previous}" value="#{bundle.Previous} #{contactController.pagination.pageSize}" rendered="#{contactController.pagination.hasPreviousPage}"/>&nbsp;
                     <h:commandLink action="#{contactController.next}" value="#{bundle.Next} #{contactController.pagination.pageSize}" rendered="#{contactController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{contactController.getContact(request.remoteUser)}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                    <h:dataTable value="#{contactController.getContact(request.remoteUser)}" var="item" class="table table-bordered">
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListContactTitle_userid}"/>

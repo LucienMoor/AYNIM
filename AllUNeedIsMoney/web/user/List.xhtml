@@ -20,7 +20,7 @@
                     <h:outputText value="#{userController.pagination.pageFirstItem + 1}..#{userController.pagination.pageLastItem + 1}/#{userController.pagination.itemsCount}"/>&nbsp;
                     <h:commandLink action="#{userController.previous}" value="#{bundle.Previous} #{userController.pagination.pageSize}" rendered="#{userController.pagination.hasPreviousPage}"/>&nbsp;
                     <h:commandLink action="#{userController.next}" value="#{bundle.Next} #{userController.pagination.pageSize}" rendered="#{userController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{userController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                    <h:dataTable value="#{userController.items}" var="item" class="table table-bordered">
                         
                         <h:column>
                             <f:facet name="header">
@@ -62,10 +62,13 @@
                             </f:facet>
                             <h:commandLink action="#{userController.prepareView}" value="#{bundle.ListUserViewLink}"/>
                             <h:outputText value=" "/>
-                            <h:commandLink action="#{userController.prepareEdit}" value="#{bundle.ListUserEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{userController.destroy}" value="#{bundle.ListUserDestroyLink}"/>
-                            <h:outputText value=" "/>
+                            <h:panelGroup rendered="#{request.isUserInRole('AdminRole') || item.nickname==request.remoteUser}">
+                                <h:commandLink action="#{userController.prepareEdit}" value="#{bundle.ListUserEditLink}"/>
+                                <h:outputText value=" "/>
+                                <h:commandLink action="#{userController.destroy}" value="#{bundle.ListUserDestroyLink}"/>
+                                <h:outputText value=" "/>      
+                            </h:panelGroup>
+                             <h:outputText value=" "/>
                             <h:commandLink rendered="${contactController.checkIfExist(request.remoteUser,item.nickname)==false}" action="#{contactController.create(request.remoteUser,item.nickname)}" value="#{bundle.ListAddMeyLink}" />
                         </h:column>
                     </h:dataTable>

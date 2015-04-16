@@ -36,17 +36,17 @@
                             </f:facet>
                             <h:commandLink action="#{messageController.prepareView}" value="#{bundle.ListMessageViewLink}"/>
                             <h:outputText value=" "/>
-                            <h:commandLink action="#{messageController.prepareEdit}" value="#{bundle.ListMessageEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{messageController.destroy}" value="#{bundle.ListMessageDestroyLink}"/>
-                            <h:outputText value=" "/>
                             <h:commandLink action="#{messageController.prepareReply(item.senderid,item.content)}" value="Reply"/>
                             
                         </h:column>
                     </h:dataTable>
                 </h:panelGroup>
                 <br />
-                <h:commandLink action="#{messageController.prepareCreate}" value="#{bundle.ListMessageCreateLink}"/>
+                <c:choose>
+                    <c:when test="#{request.isUserInRole('RichRole')}">
+                        <h:commandLink action="#{messageController.prepareCreate}" value="#{bundle.ListMessageCreateLink}"/>
+                    </c:when>
+                </c:choose>
                 <br />
                 <br />
                 <h:link outcome="/index" value="#{bundle.ListMessageIndexLink}"/>
