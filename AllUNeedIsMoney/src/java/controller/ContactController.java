@@ -101,6 +101,9 @@ public class ContactController implements Serializable {
             current = new Contact();
             User user = (User) em.createNamedQuery("User.findByNickname").setParameter("nickname", currentUser).getSingleResult();
             User contact = (User) em.createNamedQuery("User.findByNickname").setParameter("nickname", contactUser).getSingleResult();
+            int score = Integer.parseInt(contact.getScore1());
+            score+=1;
+            contact.setScore1(String.valueOf(score));
             
             current.setUser(user);
             current.setUserid(user.getId());

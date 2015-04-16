@@ -171,6 +171,7 @@ public class UserController implements Serializable  {
         }
 
         try {
+            current.setScore1("0");
             getFacade().create(current);
             Group1 group = (Group1) em.createNamedQuery("Group1.findByGroupName").setParameter("groupname", "PoorRole").getSingleResult();
             UserGroup userGroup = new UserGroup();
@@ -496,5 +497,18 @@ public class UserController implements Serializable  {
     {
         UserGroup userGroup = (UserGroup) em.createNamedQuery("UserGroup.findByNickname").setParameter("nickname", current).getSingleResult();
         return userGroup.getGroupname().getGroupname().equals("RichRole");
+    }
+    
+    public void addScore(User usr)
+    {
+        System.out.println("add ploint pls");
+        String score = usr.getScore1();
+        int iScore=Integer.parseInt(score);
+        iScore+=1;
+        usr.setScore1(String.valueOf(iScore));
+        getFacade().edit(usr);
+        
+        
+        
     }
 }

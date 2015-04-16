@@ -20,7 +20,10 @@
                         <h:button rendered="${userController.isCurrentUser(userController.selected.nickname, request.remoteUser)==true}" class="btn-info" value="Edit"/>
                     </p>
                     <p>
-                        <label>Score</label>   
+                        <label>Score</label> 
+                        <h:form>
+                            <h:commandButton class="btn btn-info" action="#{userController.addScore(userController.selected)}" value="+"/>
+                        </h:form>
                         <h:button class="btn-info" value="+"/>
                     </p>
                 </div>

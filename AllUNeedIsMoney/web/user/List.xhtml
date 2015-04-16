@@ -69,7 +69,9 @@
                                 <h:outputText value=" "/>      
                             </h:panelGroup>
                             <h:outputText value=" "/>
-                            <h:commandLink rendered="${contactController.checkIfExist(request.remoteUser,item.nickname)==false}" action="#{contactController.create(request.remoteUser,item.nickname)}" value="#{bundle.ListAddMeyLink}" />
+                            <h:commandLink rendered="${contactController.checkIfExist(request.remoteUser,item.nickname)==false}" action="#{contactController.create(request.remoteUser,item.nickname)}" value="#{bundle.ListAddMeyLink}">
+                            <f:actionListener binding="#{userController.addScore(item)}" />
+                            </h:commandLink>
                             <h:outputText value=" "/>
                             <h:commandLink rendered="#{request.isUserInRole('AdminRole')}" action="#{userController.prepareRoleEdition}" value="Change Rich / Poor"/>
                         </h:column>
