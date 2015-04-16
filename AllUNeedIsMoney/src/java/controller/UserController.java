@@ -257,7 +257,7 @@ public class UserController implements Serializable  {
     public String prepareEdit() {
         current = (User) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "Edit";
+        return "/poorSecure/user/Edit.xhtml";
     }
 
     public String update() {
@@ -300,7 +300,7 @@ public class UserController implements Serializable  {
         try {
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UserUpdated"));
-            return "View";
+            return "/user/View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
