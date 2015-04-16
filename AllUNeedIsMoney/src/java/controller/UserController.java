@@ -201,14 +201,13 @@ public class UserController implements Serializable  {
         
     }
     
-    public String search()
+    public String search(String userSearch)
     {
-        FacesContext fc = FacesContext.getCurrentInstance();
-        Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
-        String search = params.get("search");
-        System.out.println(search);
-        current = (User) em.createNamedQuery("User.findBySearch").setParameter("nickname", "%"+search+"%").getSingleResult();
-        return "user/view";
+        
+        System.out.println(userSearch);
+        List<User> results = em.createNamedQuery("User.findBySearch").setParameter("nickname", "%"+userSearch+"%").getResultList();
+        items= new ListDataModel(results);
+        return "List";
     }
 
     private String getFileName(Part part) {

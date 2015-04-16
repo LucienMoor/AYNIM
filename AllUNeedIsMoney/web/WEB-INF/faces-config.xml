@@ -25,12 +25,20 @@
             <to-view-id>/richSecure/contact/Create.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
-        <navigation-rule>
-        <from-view-id>/poorSecure/message/List.xhtml</from-view-id>
+    <navigation-rule>
+    <from-view-id>/poorSecure/message/List.xhtml</from-view-id>
+    <navigation-case>
+        <from-action>#{contactController.prepareReply}</from-action>
+        <from-outcome>Reply</from-outcome>
+        <to-view-id>/poorSecure/message/Reply.xhtml</to-view-id>
+    </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/index.xhtml</from-view-id>
         <navigation-case>
-            <from-action>#{contactController.prepareReply}</from-action>
-            <from-outcome>Reply</from-outcome>
-            <to-view-id>/poorSecure/message/Reply.xhtml</to-view-id>
+            <from-action>#{userController.search(search.value)}</from-action>
+            <from-outcome>List</from-outcome>
+            <to-view-id>/user/List.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>
