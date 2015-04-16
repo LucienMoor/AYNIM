@@ -122,6 +122,7 @@ public class ContactController implements Serializable {
     
     public List<User> getContact(String user)
     {
+        System.out.println("getcontact");
         User currentUser = (User) em.createNamedQuery("User.findByNickname").setParameter("nickname", user).getSingleResult();
         List<User> listUserContact = new ArrayList<User>();
         User contactUser = new User();
