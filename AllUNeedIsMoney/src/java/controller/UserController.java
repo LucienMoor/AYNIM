@@ -123,6 +123,7 @@ public class UserController implements Serializable  {
         current = (User) em.createNamedQuery("User.findByNickname").setParameter("nickname", user).getSingleResult();
         return "/user/View";
     }
+
     public String prepareCreate() {
         current = new User();
         selectedItemIndex = -1;
@@ -190,6 +191,25 @@ public class UserController implements Serializable  {
             return null;
         }
     }
+    
+    public boolean isCurrentUser(String user, String currentUser)
+    {
+        User leUser = (User) em.createNamedQuery("User.findByNickname").setParameter("nickname", user).getSingleResult();
+        User leCurrentUser = (User) em.createNamedQuery("User.findByNickname").setParameter("nickname", currentUser).getSingleResult();
+        
+        return leUser.getId()==leCurrentUser.getId();
+        
+    }
+    
+    public String search()
+    {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
+        String search = params.get("search");
+        System.out.println(search);
+        current = (User) em.createNamedQuery("User.findBySearch").setParameter("nickname", "%"+search+"%").getSingleResult();
+        return "user/view";
+    }
 
     private String getFileName(Part part) {
         final String partHeader = part.getHeader("content-disposition");
@@ -202,6 +222,7 @@ public class UserController implements Serializable  {
         }
         return null;
     }
+    
 
     private String uploadFile() throws IOException {
 

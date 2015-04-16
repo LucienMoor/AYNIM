@@ -4,7 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <body>
         <ui:composition template="/layout/commonLayout.xhtml">
@@ -13,12 +14,10 @@
                     <p>
                         <h:graphicImage library="images" name="#{userController.selected.profilPicture}"/>
                     </p>
+                    
                     <p>
-                        <h:button class="btn-info" value="See more picture"/>
-                    </p>
-                    <p>
-                        <h:button class="btn-danger" value="Delete"/>
-                        <h:button class="btn-info" value="Edit"/>
+                        <h:button rendered="${userController.isCurrentUser(userController.selected.nickname, request.remoteUser)==true}" class="btn-danger" value="Delete"/>
+                        <h:button rendered="${userController.isCurrentUser(userController.selected.nickname, request.remoteUser)==true}" class="btn-info" value="Edit"/>
                     </p>
                     <p>
                         <label>Score</label>   
