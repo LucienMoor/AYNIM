@@ -21,12 +21,14 @@
                     <a class="navbar-brand" href="/AllUNeedIsMoney/homePage.xhtml">All U need is $$$</a>
                 </div>
                 <div class="navbar-collapse collapse">
-                    <form class="navbar-form navbar-right">   
+                    <h:form class="navbar-form navbar-right">   
                         <div class="icon-addon addon-md">
-                            <input type="text" placeholder="Search..." class="form-control" id="email" />
-                            <i class="glyphicon glyphicon-search" style="color:white"></i>
+                            <h:inputText class="form-control" id="search" />
+                            <h:commandLink action="#{userController.search()}">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </h:commandLink>
                         </div>
-                    </form>
+                    </h:form>
                     <ul class="nav navbar-nav navbar-right">
                         <c:choose>
                             <c:when test="${request.remoteUser!=null}">

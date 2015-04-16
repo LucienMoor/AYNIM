@@ -140,9 +140,6 @@ public class ContactController implements Serializable {
 
     public boolean checkIfExist(String currentUser, String contactUser)
     {
-       System.out.println("Hello");
-       System.out.println(currentUser);
-       System.out.println("contact:" + contactUser);
        User user = (User) em.createNamedQuery("User.findByNickname").setParameter("nickname", currentUser).getSingleResult();
        User contact = (User) em.createNamedQuery("User.findByNickname").setParameter("nickname", contactUser).getSingleResult();
        List<Contact> contactExist = em.createNamedQuery("Contact.findByUseridAndContactid").setParameter("userid", user.getId()).setParameter("contactid", contact.getId()).getResultList();

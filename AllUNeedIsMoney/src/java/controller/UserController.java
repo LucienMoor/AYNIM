@@ -185,6 +185,16 @@ public class UserController implements Serializable  {
             return null;
         }
     }
+    
+    public String search()
+    {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
+        String search = params.get("search");
+        System.out.println(search);
+        current = (User) em.createNamedQuery("User.findBySearch").setParameter("nickname", "%"+search+"%").getSingleResult();
+        return "user/view";
+    }
 
     private String getFileName(Part part) {
         final String partHeader = part.getHeader("content-disposition");
@@ -197,6 +207,7 @@ public class UserController implements Serializable  {
         }
         return null;
     }
+    
 
     private String uploadFile() throws IOException {
 

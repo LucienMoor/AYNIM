@@ -45,7 +45,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findByBirthday", query = "SELECT u FROM User u WHERE u.birthday = :birthday"),
     @NamedQuery(name = "User.findByScore1", query = "SELECT u FROM User u WHERE u.score1 = :score1"),
     @NamedQuery(name = "User.findByCountry", query = "SELECT u FROM User u WHERE u.country = :country"),
-    @NamedQuery(name = "User.findByCity", query = "SELECT u FROM User u WHERE u.city = :city")})
+    @NamedQuery(name = "User.findByCity", query = "SELECT u FROM User u WHERE u.city = :city"),
+    @NamedQuery(name= "User.findBySearch", query = "SELECT u FROM User u WHERE u.nickname LIKE :nickname")})  
+
 public class User implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "nickname")
     private Collection<UserGroup> userGroupCollection;
