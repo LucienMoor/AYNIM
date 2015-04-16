@@ -460,7 +460,7 @@ public class UserController implements Serializable  {
         }
     }
     
-    public void madeRich()
+    public void makeRich()
     {
         Group1 group = (Group1) em.createNamedQuery("Group1.findByGroupName").setParameter("groupname", "RichRole").getSingleResult();
         UserGroup userGroup = (UserGroup) em.createNamedQuery("UserGroup.findByNickname").setParameter("nickname", current).getSingleResult();
@@ -476,7 +476,7 @@ public class UserController implements Serializable  {
         }
     }
     
-    public void madePoor()
+    public void makePoor()
     {
         Group1 group = (Group1) em.createNamedQuery("Group1.findByGroupName").setParameter("groupname", "PoorRole").getSingleResult();
         UserGroup userGroup = (UserGroup) em.createNamedQuery("UserGroup.findByNickname").setParameter("nickname", current).getSingleResult();

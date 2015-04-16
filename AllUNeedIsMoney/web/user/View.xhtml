@@ -16,8 +16,10 @@
                     </p>
                     
                     <p>
-                        <h:button rendered="${userController.isCurrentUser(userController.selected.nickname, request.remoteUser)==true}" class="btn-danger" value="Delete"/>
-                        <h:button rendered="${userController.isCurrentUser(userController.selected.nickname, request.remoteUser)==true}" class="btn-info" value="Edit"/>
+                        <h:form>
+                        <h:commandLink rendered="${userController.isCurrentUser(userController.selected.nickname, request.remoteUser)==true}" action="#{userController.destroyAndView}" value="#{bundle.ListUserDestroyLink}" class="btn-danger"/>
+                        <h:commandLink rendered="${userController.isCurrentUser(userController.selected.nickname, request.remoteUser)==true}" action="/poorSecure/user/Edit" value="#{bundle.ListUserEditLink}" class="btn-info"/>
+                        </h:form>
                     </p>
                     <p>
                         <label>Score</label>   
