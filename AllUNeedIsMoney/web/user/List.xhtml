@@ -68,8 +68,10 @@
                                 <h:commandLink action="#{userController.destroy}" value="#{bundle.ListUserDestroyLink}"/>
                                 <h:outputText value=" "/>      
                             </h:panelGroup>
-                             <h:outputText value=" "/>
+                            <h:outputText value=" "/>
                             <h:commandLink rendered="${contactController.checkIfExist(request.remoteUser,item.nickname)==false}" action="#{contactController.create(request.remoteUser,item.nickname)}" value="#{bundle.ListAddMeyLink}" />
+                            <h:outputText value=" "/>
+                            <h:commandLink rendered="#{request.isUserInRole('AdminRole')}" action="#{userController.prepareRoleEdition}" value="Change Rich / Poor"/>
                         </h:column>
                     </h:dataTable>
                 </h:panelGroup>
