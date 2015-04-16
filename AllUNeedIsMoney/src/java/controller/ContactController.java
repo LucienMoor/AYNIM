@@ -81,7 +81,7 @@ public class ContactController implements Serializable {
     public String prepareCreate() {
         current = new Contact();
         selectedItemIndex = -1;
-        return "Create";
+        return "newContact";
     }
 
     /*public String create() {
