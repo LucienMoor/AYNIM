@@ -9,8 +9,9 @@
 
     <body>
         <ui:composition template="/layout/commonLayout.xhtml">
-            <ui:define name="content">
-                <div class="avatar" id="left-part">
+            <ui:define name="content">          
+                <div class="text-center">
+                     <div class="avatar center-block">
                     <p>
                         <h:graphicImage library="images" name="#{userController.selected.profilPicture}"/>
                     </p>
@@ -28,11 +29,8 @@
                         <h:form>
                             <h:commandButton class="btn btn-info" action="#{userController.addScore(userController.selected)}" value="+"/>
                         </h:form>
-                        <h:button class="btn-info" value="+"/>
                     </p>
                 </div>
-                <div id="center-part">
-                    <div id="center-top-part"> 
                         <span>
                             <p>
                                 <h:outputText id="nickname" value="#{userController.selected.nickname}" title="#{bundle.ViewUserTitle_nickname}"/>
@@ -49,10 +47,7 @@
                                 <h:outputText id="country" value="#{userController.selected.country}" title="#{bundle.ViewUserTitle_country}"/>
                             </p>
                         </span>
-                        <div id="status">
-                            <h:outputText id="description" value="#{userController.selected.description}" title="#{bundle.ViewUserTitle_description}"/>
-                        </div>   
-                    </div>
+                        <h:outputText id="description" value="#{userController.selected.description}" title="#{bundle.ViewUserTitle_description}"/> 
                 </div>
             </ui:define>
     	</ui:composition>

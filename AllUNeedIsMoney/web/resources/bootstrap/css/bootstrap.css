@@ -6552,30 +6552,6 @@ button.close {
     width:100%;
     max-width:200px;
  }
- 
-#left-part, #center-part{
-    position: fixed;
-    left:0; top:10%; right:5%; bottom:20%;
-}
-
-#status{
-    float:left;
-}
- 
-#left-part{
-     right: 80%;
- }
- 
-#center-part {
-     left: 15%;
-     
- }
- 
- #center-top-part{
-      top: 20%;
- }
-
- 
 
 @media print {
   .visible-print-inline {

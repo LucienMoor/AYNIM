@@ -26,7 +26,7 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListUserTitle_nickname}"/>
                             </f:facet>
-                            <h:outputText value="#{item.nickname}"/>
+                            <h:commandLink action="#{userController.prepareView}" value="#{item.nickname}"/>
                         </h:column>
                        
                         <h:column>
@@ -61,7 +61,7 @@
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
                             
-                            <h:commandLink action="#{userController.prepareView}" value="#{bundle.ListUserViewLink}"/>
+                            
                             <h:outputText value=" "/>
                             <c:if test="#{not empty request.remoteUser}">
                                 <h:panelGroup rendered="#{request.isUserInRole('AdminRole') || item.nickname==request.remoteUser}">

@@ -13,13 +13,13 @@
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
-            <h:form>
+            <h:form class="form-group">
                 #{messageController.setUser(request.remoteUser)}
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.CreateMessageDest}" for="userid" />
-                    <h:inputText binding="#{destUser}" title="#{bundle.CreateMessageDest}" required="true" requiredMessage="#{bundle.CreateMessageRequiredMessage_dest}"/>
+                    <h:inputText class="form-control" binding="#{destUser}" title="#{bundle.CreateMessageDest}" required="true" requiredMessage="#{bundle.CreateMessageRequiredMessage_dest}"/>
                     <h:outputLabel value="#{bundle.CreateMessageLabel_content}" for="content" />
-                    <h:inputTextarea rows="4" cols="30" id="content" value="#{messageController.selected.content}" title="#{bundle.CreateMessageTitle_content}" required="true" requiredMessage="#{bundle.CreateMessageRequiredMessage_content}"/>
+                    <h:inputTextarea class="form-control" rows="4" cols="30" id="content" value="#{messageController.selected.content}" title="#{bundle.CreateMessageTitle_content}" required="true" requiredMessage="#{bundle.CreateMessageRequiredMessage_content}"/>
                     <h:outputLabel value="#{bundle.CreateMessageLabel_user}" for="user" />
                     <!--<h:selectOneMenu id="user" value="#{messageController.selected.user}" title="#{bundle.CreateMessageTitle_user}" required="true" requiredMessage="#{bundle.CreateMessageRequiredMessage_user}">
                         <f:selectItems value="#{userController.itemsAvailableSelectOne}"/>
