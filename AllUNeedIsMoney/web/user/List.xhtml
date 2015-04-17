@@ -20,7 +20,7 @@
                     <h:outputText value="#{userController.pagination.pageFirstItem + 1}..#{userController.pagination.pageLastItem + 1}/#{userController.pagination.itemsCount}"/>&nbsp;
                     <h:commandLink action="#{userController.previous}" value="#{bundle.Previous} #{userController.pagination.pageSize}" rendered="#{userController.pagination.hasPreviousPage}"/>&nbsp;
                     <h:commandLink action="#{userController.next}" value="#{bundle.Next} #{userController.pagination.pageSize}" rendered="#{userController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{userController.items}" var="item" class="table table-bordered">
+                    <h:dataTable value="#{userController.items}" var="item" class="table table-striped table-condensed">
                         
                         <h:column>
                             <f:facet name="header">
@@ -60,19 +60,23 @@
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
-                            
-                            
+                                   
                             <h:outputText value=" "/>
                             <c:if test="#{not empty request.remoteUser}">
                                 <h:panelGroup rendered="#{request.isUserInRole('AdminRole') || item.nickname==request.remoteUser}">
-                                    <h:commandLink action="#{userController.prepareEdit}" value="#{bundle.ListUserEditLink}"/>
+                                    <h:commandLink action="#{userController.prepareEdit}">
+                                        <i class="glyphicon glyphicon-pencil"/>
+                                    </h:commandLink>
                                     <h:outputText value=" "/>
-                                    <h:commandLink action="#{userController.destroy}" value="#{bundle.ListUserDestroyLink}"/>
+                                    <h:commandLink action="#{userController.destroyCurrent(request.remoteUser)}">
+                                        <i class="glyphicon glyphicon-trash"/>
+                                    </h:commandLink>
                                     <h:outputText value=" "/>          
                                 </h:panelGroup>
                             <h:outputText value=" "/>
                             <h:commandLink rendered="${contactController.checkIfExist(request.remoteUser,item.nickname)==false}" action="#{contactController.create(request.remoteUser,item.nickname)}" value="#{bundle.ListAddMeyLink}">
-                            <f:actionListener binding="#{userController.addScore(item)}" />
+                                <f:actionListener binding="#{userController.addScore(item)}" />
+                                <i class="glyphicon glyphicon-heart"/>
                             </h:commandLink>
                             <h:outputText value=" "/>
                             <h:commandLink rendered="#{request.isUserInRole('AdminRole')}" action="#{userController.prepareRoleEdition}" value="Change Rich / Poor"/>
@@ -83,7 +87,6 @@
                     </h:dataTable>
                 </h:panelGroup>
                 <br />
-                <h:commandLink action="#{userController.prepareCreate}" value="#{bundle.ListUserCreateLink}"/>
                 <br />
                 <br />
                 <h:link outcome="/index" value="#{bundle.ListUserIndexLink}"/>

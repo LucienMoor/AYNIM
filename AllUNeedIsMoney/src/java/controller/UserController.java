@@ -142,6 +142,11 @@ public class UserController implements Serializable  {
                 return null;
             }
         }
+        else
+        {
+            current.setProfilPicture("smiley.png");
+        }
+        
 
         try {
 
