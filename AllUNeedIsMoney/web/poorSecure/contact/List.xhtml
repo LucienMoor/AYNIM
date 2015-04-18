@@ -22,9 +22,15 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListContactTitle_userid}"/>
                             </f:facet>
+                            <h:outputText value="#{item.nickname}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
                             <h:commandLink action="#{userController.prepareMyView(item.nickname)}" value="#{item.nickname}"/>
                             <div class="pull-right col-lg-9">
-                            <h:commandLink action="#{contactController.destroy}">
+                            <h:commandLink action="#{contactController.destroyContact(item,request.remoteUser)}">
                                  <i class="glyphicon glyphicon-trash"></i>
                             </h:commandLink>
                             </div>

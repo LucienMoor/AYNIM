@@ -3,16 +3,24 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      >
+          
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <body>
-	    <ui:composition template="layout/commonLayout.xhtml">
- 
-    		<ui:define name="content">
-    			<h2>Welcome!</h2>
-                        <p>Create a user <a href="/AllUNeedIsMoney/user/Create.xhtml">here!</a></p>
+	    <ui:composition template="layout/commonLayout.xhtml">    
+                <ui:define name="content">   
+                    <div class="background">
+                        <h1 class="text-center pinyon">Welcome!</h1>
+                        <c:if test="${request.remoteUser==null}">    
+                        <p class="text-center normal-text">Create a user <a href="/AllUNeedIsMoney/user/Create.xhtml">here!</a></p> 
+                        </c:if>
+                        <div class="logo" id=" imageWrapper">
+                            <p class="normal-text">(futur) sponsors</p>
+                            <a href="http://www.luxurylife-magazin.com/"><h:graphicImage library="images" name="llm-logo.png"/></a>
+                            <a href="http://www.swissluxuryshop.ch/"><h:graphicImage library="images" name="logo.png"/></a>
+                        </div>
+                    </div>    
     		</ui:define>
-
-
     	</ui:composition>
     </body>
 </html>

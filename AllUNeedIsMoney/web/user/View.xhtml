@@ -25,10 +25,8 @@
                         </c:if>
                     </p>
                     <p>
-                        <label>Score</label> 
-                        <h:form>
-                            <h:commandButton class="btn btn-info" action="#{userController.addScore(userController.selected)}" value="+"/>
-                        </h:form>
+                        <label>Score : </label> 
+                        <h:outputText id="score1" value="#{userController.selected.score1}"/>
                     </p>
                 </div>
                         <span>

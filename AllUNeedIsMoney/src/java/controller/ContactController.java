@@ -21,6 +21,9 @@ import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.RollbackException;
+import javax.transaction.SystemException;
 
 @ManagedBean(name = "contactController")
 @SessionScoped
@@ -174,7 +177,25 @@ public class ContactController implements Serializable {
         recreateModel();
         return "List";
     }
-
+    
+    public String destroyContact(User userToRemove,String me)
+    {
+        User usr = (User) em.createNamedQuery("User.findByNickname").setParameter("nickname", me).getSingleResult();
+        System.out.println(userToRemove.getId());
+        System.out.println(usr.getId());
+        List<Contact> c1;
+        List<Contact> c2;
+        c1 =em.createNativeQuery("SELECT * FROM contact WHERE userid = '"+usr.getId()+"' AND contactid = '"+userToRemove.getId()+"'",Contact.class).getResultList();
+        
+        c2=em.createNativeQuery("SELECT * FROM contact WHERE userid = '"+usr.getId()+"' AND contactid = '"+userToRemove.getId()+"'",Contact.class).getResultList();
+        c1.addAll(c2);
+        for(Contact c : c1)
+        {
+            System.out.println(c);
+            getFacade().remove(c);
+        }
+        return "List";
+    }
     public String destroyAndView() {
         performDestroy();
         recreateModel();

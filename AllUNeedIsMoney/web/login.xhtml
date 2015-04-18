@@ -7,11 +7,15 @@
     <body>
         <ui:composition template="layout/commonLayout.xhtml">
             <ui:define name="content">
-            <form action="j_security_check" method="POST"> 
-                Username:<input type="text" name="j_username"/><br/>
-                Password:<input type="password" name="j_password"/>
-                <input id="login" type="submit" value="Login"/>
-            </form>
+                <div class="background">
+                    <form action="j_security_check" method="POST"> 
+                        <p class="normal-text text-center">Username:</p>
+                        <input class="center-block" type="text" name="j_username"/><br/>
+                        <p class="normal-text text-center">Password:</p>
+                        <input class="center-block" type="password" name="j_password"/>
+                        <input class="center-block" id="login" type="submit" value="Login"/>
+                    </form>
+                </div>
             </ui:define>
         </ui:composition>   
     </body>
