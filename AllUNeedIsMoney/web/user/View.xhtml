@@ -10,10 +10,10 @@
     <body>
         <ui:composition template="/layout/commonLayout.xhtml">
             <ui:define name="content">          
-                <div class="text-center">
+                <div class="text-center profil">
                      <div class="avatar center-block">
                     <p>
-                        <h:graphicImage library="images" name="#{userController.selected.profilPicture}"/>
+                        <h:graphicImage class="thumbnail center-block" library="images" name="#{userController.selected.profilPicture}"/>
                     </p>
                     
                     <p>

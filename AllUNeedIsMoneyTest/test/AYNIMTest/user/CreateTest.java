@@ -59,7 +59,7 @@ public class CreateTest {
         System.setProperty("webdriver.chrome.driver", "c:/temp/chromedriver.exe");
         driver = new ChromeDriver();
         baseUrl = "http://localhost:20628/AllUNeedIsMoney/";
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
     }
     
     @AfterClass
@@ -105,7 +105,7 @@ public class CreateTest {
         driver.findElement(By.name("form:city")).sendKeys(city);
         driver.findElement(By.name("form:description")).clear();
         driver.findElement(By.name("form:description")).sendKeys(description);
-        driver.findElement(By.linkText("Save")).click();
+        driver.findElement(By.id("form:createLink")).click();
         Thread.sleep(1000);
         assertEquals(result,driver.findElement(By.id("messagePanel")).getText());
     }

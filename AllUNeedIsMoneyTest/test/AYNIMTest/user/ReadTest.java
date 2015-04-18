@@ -55,7 +55,7 @@ public class ReadTest {
         System.setProperty("webdriver.chrome.driver", "c:/temp/chromedriver.exe");
         driver = new ChromeDriver();
         baseUrl = "http://localhost:20628/AllUNeedIsMoney/";
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
     }
     
     @AfterClass
@@ -90,7 +90,7 @@ public class ReadTest {
         Thread.sleep(1000);
         driver.findElement(By.id("j_idt11:searchButton")).click();
         Thread.sleep(1000);
-        driver.findElement(By.linkText("View")).click();
+        driver.findElement(By.linkText("test")).click();
         Thread.sleep(1000);
         
         //Check profil

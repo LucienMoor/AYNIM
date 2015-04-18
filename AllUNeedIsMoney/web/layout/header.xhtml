@@ -36,8 +36,14 @@
                         <li><a href="/AllUNeedIsMoney/user/List.xhtml">See All</a></li>
                         <li>
                             <h:form>
+                                
                             <h:commandLink id="profilLink" action="#{userController.prepareMyView(request.remoteUser)}">
-                                <h:graphicImage library="images" name="smiley-small.png" />
+                                <c:if test="${userController.getPicture(request.remoteUser)!=null}">
+                                    <h:graphicImage class="avatar-header" library="images" name="#{userController.getPicture(request.remoteUser)}" />
+                                </c:if>
+                                <c:if test="${userController.getPicture(request.remoteUser)==null}">
+                                    <h:graphicImage class="avatar-header" library="images" name="{smiley-small.png}" />
+                                </c:if>
                             </h:commandLink>
                             </h:form>
                             </li>

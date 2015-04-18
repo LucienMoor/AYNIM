@@ -321,6 +321,19 @@ public class UserController implements Serializable  {
         recreateModel();
         return "List";
     }
+    
+    public String destroyAndView() {
+        performDestroy();
+        recreateModel();
+        updateCurrentItem();
+        if (selectedItemIndex >= 0) {
+            return "View";
+        } else {
+            // all items were removed - go back to list
+            recreateModel();
+            return "List";
+        }
+    }
 
     public String destroyFromProfil() {
         performDestroy();
@@ -508,5 +521,12 @@ public class UserController implements Serializable  {
         
         
         
+    }
+    
+    public String getPicture (String currentUser)
+    {
+        User user= (User) em.createNamedQuery("User.findByNickname").setParameter("nickname", currentUser).getSingleResult();
+        
+        return user.getProfilPicture();
     }
 }
