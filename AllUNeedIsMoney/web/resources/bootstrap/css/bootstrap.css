@@ -1,3 +1,4 @@
+@import url(http://fonts.googleapis.com/css?family=Pinyon+Script);
 /*!
  * Bootstrap v3.3.2 (http://getbootstrap.com)
  * Copyright 2011-2015 Twitter, Inc.
@@ -5,6 +6,38 @@
  */
 
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
+div.background{
+    background-image: url("#{resource['images/background4.png']}");
+    background-color: black;
+    background-position: right;
+    background-repeat: no-repeat;
+  
+    position:fixed;
+    padding:0;
+    margin:0;
+    
+    width: 100%;
+    height: 100%;
+} 
+
+.pinyon{
+    font-family: 'Pinyon Script', cursive;
+    font-size: 500%;
+    color: white;
+}
+
+.normal-text{
+    color: white;
+}
+
+#imageWrapper { position: relative; 
+               height: 500px; 
+}
+div.logo{
+         position: absolute; 
+         bottom: 150px; 
+}
+
 html {
   font-family: sans-serif;
   -webkit-text-size-adjust: 100%;
@@ -6654,5 +6687,7 @@ button.close {
     .icon-addon:hover .fa {
         color: #2580db;
     }
+    
+    
 }
 /*# sourceMappingURL=bootstrap.css.map */
