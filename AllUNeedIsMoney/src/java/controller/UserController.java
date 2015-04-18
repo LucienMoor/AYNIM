@@ -515,4 +515,11 @@ public class UserController implements Serializable  {
         
         
     }
+    
+    public String getPicture (String currentUser)
+    {
+        User user= (User) em.createNamedQuery("User.findByNickname").setParameter("nickname", currentUser).getSingleResult();
+        
+        return user.getProfilPicture();
+    }
 }
