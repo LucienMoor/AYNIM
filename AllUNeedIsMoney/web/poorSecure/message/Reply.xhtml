@@ -15,11 +15,8 @@
                 #{messageController.setUser(request.remoteUser)}
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.CreateMessageLabel_content}" for="content" />
-                    <h:inputTextarea rows="4" cols="30" id="content" value="#{messageController.selected.content}" title="#{bundle.CreateMessageTitle_content}" required="true" requiredMessage="#{bundle.CreateMessageRequiredMessage_content}"/>
+                    <h:inputTextarea rows="4" cols="30" id="content" value="" title="#{bundle.CreateMessageTitle_content}" required="true" requiredMessage="#{bundle.CreateMessageRequiredMessage_content}"/>
                     <h:outputLabel value="#{bundle.CreateMessageLabel_user}" for="user" />
-                    <!--<h:selectOneMenu id="user" value="#{messageController.selected.user}" title="#{bundle.CreateMessageTitle_user}" required="true" requiredMessage="#{bundle.CreateMessageRequiredMessage_user}">
-                        <f:selectItems value="#{userController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>-->
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{messageController.create(null)}" value="#{bundle.CreateMessageSaveLink}">

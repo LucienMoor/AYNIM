@@ -191,7 +191,6 @@ public class ContactController implements Serializable {
         c1.addAll(c2);
         for(Contact c : c1)
         {
-            System.out.println(c);
             getFacade().remove(c);
         }
         return "List";

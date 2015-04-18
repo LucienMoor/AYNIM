@@ -6,6 +6,7 @@ import controller.util.PaginationHelper;
 import entities.User;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -95,16 +96,29 @@ public class MessageController implements Serializable {
     {
         User usr = (User) em.createNamedQuery("User.findByNickname").setParameter("nickname", userName).getSingleResult();
         List<Message> msg = em.createNamedQuery("Message.findByUserid").setParameter("userid", usr.getId()).getResultList();
-        items= new ListDataModel(msg);
+        List<Message> printMsg=new ArrayList<Message>();
+        for(Message mess : msg)
+        {
+            Message toAdd = mess;
+            if(mess.getContent().length()>49)
+            {
+                
+                toAdd.setContent(mess.getContent().substring(0, 50)+". . .");
+                
+            }
+            printMsg.add(toAdd);
+            
+        }
+        items= new ListDataModel(printMsg);
         return items;
     }
 
     public String prepareView() {
-        current = (Message) getItems().getRowData();
+        Message msg =  (Message)getItems().getRowData();
+        current = (Message)em.createNamedQuery("Message.findById").setParameter("id", msg.getId()).getSingleResult();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
-
 
     public String prepareCreate() {
         current = new Message();
@@ -120,7 +134,6 @@ public class MessageController implements Serializable {
                 System.out.println("toAnswer: "+toAnswer);
                 current.setUserid(toAnswer);
                 current.setContent(current.getContent() + "SAUT_LIGNE SAUT_LIGNE ----- old ----- SAUT_LIGNE SAUT_LIGNE" + oldContent);
-                current.setContent(current.getContent().replaceAll("(\\r|\\n)", "SAUT_LIGNE"));
             }
             else
             {
@@ -135,6 +148,7 @@ public class MessageController implements Serializable {
             System.out.println(current.getSenderid());
             System.out.println(current.getContent());
             System.out.println(current.getUserid());
+            current.setContent(current.getContent().replaceAll("(\\r|\\n)", "SAUT_LIGNE"));
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("MessageCreated"));
             return "List";

@@ -41,4 +41,12 @@
             <to-view-id>/user/List.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+        <navigation-rule>
+        <from-view-id>/richSecure/message/Create.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{messageController.create(destUser.value)}</from-action>
+            <from-outcome>List</from-outcome>
+            <to-view-id>/poorSecure/message/List.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>

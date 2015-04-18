@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition template="/layout/commonLayout.xhtml">
@@ -12,31 +13,24 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewMessageLabel_id}"/>
-                    <h:outputText value="#{messageController.selected.id}" title="#{bundle.ViewMessageTitle_id}"/>
-                    <h:outputText value="#{bundle.ViewMessageLabel_userid}"/>
-                    <h:outputText value="#{messageController.selected.userid}" title="#{bundle.ViewMessageTitle_userid}"/>
-                    <h:outputText value="#{bundle.ViewMessageLabel_senderid}"/>
-                    <h:outputText value="#{messageController.selected.senderid}" title="#{bundle.ViewMessageTitle_senderid}"/>
-                    <h:outputText value="#{bundle.ViewMessageLabel_content}"/>
-                    <h:outputText value="#{messageController.selected.content}" title="#{bundle.ViewMessageTitle_content}"/>
-                    <h:outputText value="#{bundle.ViewMessageLabel_user}"/>
-                    <h:outputText value="#{messageController.selected.user}" title="#{bundle.ViewMessageTitle_user}"/>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{messageController.destroyAndView}" value="#{bundle.ViewMessageDestroyLink}"/>
+                    <h:outputLabel>#{bundle.ViewMessageLabel_senderid} : </h:outputLabel> 
+                    <h:outputText value="#{userController.findNickname(messageController.selected.senderid)}"/><br/>
+                    <h:outputLabel>Your lovely mate tells you :</h:outputLabel><br/>
+                    
+                    <h:outputText value="${fn:replace(messageController.selected.content, 
+                                'SAUT_LIGNE', '&lt;br/&gt;')}"  escape="false"/>
 
-                <h:commandLink action="#{messageController.prepareCreate}" value="#{bundle.ViewMessageCreateLink}" />
                 <br />
                 <h:commandLink action="#{messageController.prepareList}" value="#{bundle.ViewMessageShowAllLink}"/>
                 <br />
-                <h:commandLink action="#{messageController.prepareAnswer}" value="Answer"/>
+                <h:commandLink action="#{messageController.prepareReply(messageController.selected.senderid,messageController.selected.content)}" value="Answer"/>
                 <br />
                 <h:link outcome="/index" value="#{bundle.ViewMessageIndexLink}"/>
-
+                <br/>
+                <br/>
             </h:form>
         </ui:define>
+        
     </ui:composition>
 
 </html>
