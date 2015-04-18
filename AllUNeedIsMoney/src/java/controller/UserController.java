@@ -322,17 +322,11 @@ public class UserController implements Serializable  {
         return "List";
     }
 
-    public String destroyAndView() {
+    public String destroyFromProfil() {
         performDestroy();
         recreateModel();
         updateCurrentItem();
-        if (selectedItemIndex >= 0) {
-            return "View";
-        } else {
-            // all items were removed - go back to list
-            recreateModel();
-            return "List";
-        }
+        return "/homePage.xhtml";
     }
 
     private void performDestroy() {
