@@ -13,35 +13,35 @@ and open the template in the editor.
    <ui:composition template="/layout/commonLayout.xhtml">
         <ui:define name="content">
     <body> 
-        <h:form id="userForm" enctype="multipart/form-data">
+        <h:form id="userForm" class="form-group" enctype="multipart/form-data">
             
             <p>
-        Nickname : <h:inputText id ="nickname" value="Nickname" validatorMessage="The nickname must be between 2 and 10 character long" >
+        Nickname : <h:inputText class="form-control" id ="nickname" value="Nickname" validatorMessage="The nickname must be between 2 and 10 character long" >
             <f:validateLength minimum="2" maximum="10"/>
         </h:inputText>
             </p> 
             <p>
-        Email : <h:inputText id="email" p:type="email" />
+        Email : <h:inputText class="form-control" id="email" p:type="email" />
             </p>
             <p>
-        Birthday : <h:inputText id="date" p:type="date"/>
+        Birthday : <h:inputText class="form-control" id="date" p:type="date"/>
         </p>
             <p>
         Country : 
-        <h:inputText id ="country"/>
+        <h:inputText class="form-control" id ="country"/>
         </p>
         <p>
         City :
-        <h:inputText id ="city"/>
+        <h:inputText class="form-control" id ="city"/>
         </p>
         <p>
-        Profil picture : <h:inputFile id="picture"/>
+        Profil picture : <h:inputFile class="form-control" id="picture"/>
         </p>
         <p>
-        Password : <h:inputSecret id="password" />
+        Password : <h:inputSecret class="form-control" id="password" />
         </p>
             
-            <h:commandButton value="Submit" action="/RegistrationServlet"/>
+            <h:commandButton class="btn-default" value="Submit" action="/RegistrationServlet"/>
             
         </h:form>
 

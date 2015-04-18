@@ -142,6 +142,11 @@ public class UserController implements Serializable  {
                 return null;
             }
         }
+        else
+        {
+            current.setProfilPicture("smiley.png");
+        }
+        
 
         try {
 
@@ -208,7 +213,7 @@ public class UserController implements Serializable  {
         System.out.println(userSearch);
         List<User> results = em.createNamedQuery("User.findBySearch").setParameter("nickname", "%"+userSearch+"%").getResultList();
         items= new ListDataModel(results);
-        return "List";
+        return "/user/List.xhtml";
     }
 
     private String getFileName(Part part) {

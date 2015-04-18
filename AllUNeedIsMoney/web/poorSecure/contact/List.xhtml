@@ -17,7 +17,7 @@
                     <h:outputText value="#{contactController.pagination.pageFirstItem + 1}..#{contactController.pagination.pageLastItem + 1}/#{contactController.pagination.itemsCount}"/>&nbsp;
                     <h:commandLink action="#{contactController.previous}" value="#{bundle.Previous} #{contactController.pagination.pageSize}" rendered="#{contactController.pagination.hasPreviousPage}"/>&nbsp;
                     <h:commandLink action="#{contactController.next}" value="#{bundle.Next} #{contactController.pagination.pageSize}" rendered="#{contactController.pagination.hasNextPage}"/>&nbsp;
-                    <h:dataTable value="#{contactController.getContact(request.remoteUser)}" var="item" class="table table-bordered">
+                    <h:dataTable value="#{contactController.getContact(request.remoteUser)}" var="item" class="table table-striped table-condensed table-responsive">
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListContactTitle_userid}"/>
@@ -28,9 +28,12 @@
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
-                            <h:commandLink action="#{userController.prepareMyView(item.nickname)}" value="#{bundle.ListContactViewLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{contactController.destroyContact(item.id,request.remoteUser)}" value="#{bundle.ListContactDestroyLink}"/>
+                            <h:commandLink action="#{userController.prepareMyView(item.nickname)}" value="#{item.nickname}"/>
+                            <div class="pull-right col-lg-9">
+                            <h:commandLink action="#{contactController.destroyContact(item,request.remoteUser)}">
+                                 <i class="glyphicon glyphicon-trash"></i>
+                            </h:commandLink>
+                            </div>
                         </h:column>
                     </h:dataTable>
                 </h:panelGroup>
