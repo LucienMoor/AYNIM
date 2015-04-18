@@ -21,9 +21,9 @@
                     <a class="navbar-brand pinyon" href="/AllUNeedIsMoney/homePage.xhtml">All U need is $$$</a>
                 </div>
                 <div class="navbar-collapse collapse">
-                    <h:form class="navbar-form navbar-right">   
+                    <h:form class="navbar-form navbar-right" id="headerFormSearch">   
                         <div class="icon-addon addon-md">
-                            <h:inputText class="form-control" binding="#{search}" />
+                            <h:inputText id="searchField" class="form-control" binding="#{search}" />
                             <h:commandLink id="searchButton" action="#{userController.search(search.value)}">
                                 <i class="glyphicon glyphicon-search"></i>
                             </h:commandLink>
@@ -35,7 +35,7 @@
                         <li><a href="/AllUNeedIsMoney/poorSecure/message/List.xhtml">Message</a></li>
                         <li><a href="/AllUNeedIsMoney/user/List.xhtml">See All</a></li>
                         <li>
-                            <h:form>
+                            <h:form id="headerFormProfil" >
                                 
                             <h:commandLink id="profilLink" action="#{userController.prepareMyView(request.remoteUser)}">
                                 <c:if test="${userController.getPicture(request.remoteUser)!=null}">
@@ -48,7 +48,7 @@
                             </h:form>
                             </li>
                             <li><a href="/AllUNeedIsMoney/poorSecure/contact/List.xhtml">Contact</a></li>
-                            <li><h:form>
+                            <li><h:form id="headerFormLogout">
                                     <h:commandLink id="logoutLink" action="#{authenticationController.logout}">#{request.remoteUser}</h:commandLink>
                                 </h:form></li></c:when>
                             <c:otherwise><li><a href="/AllUNeedIsMoney/login.xhtml">Login/Sign in </a></li></c:otherwise>
