@@ -33,7 +33,7 @@
                     <h:inputTextarea rows="4" cols="30" id="description" value="#{userController.selected.description}" title="#{bundle.EditUserTitle_description}" required="true" requiredMessage="#{bundle.EditUserRequiredMessage_description}"/>
                     Profil picture : <h:inputFile id="picture" value="#{userController.file}"/>
                 </h:panelGrid>
-                <h:commandLink action="#{userController.update}" value="#{bundle.EditUserSaveLink}"/>
+                <h:commandLink id="editLink" action="#{userController.update}" value="#{bundle.EditUserSaveLink}"/>
                 <br />
                 <br />
                 <h:link outcome="/user/View" value="#{bundle.EditUserViewLink}"/>

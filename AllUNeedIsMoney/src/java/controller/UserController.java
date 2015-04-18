@@ -321,7 +321,7 @@ public class UserController implements Serializable  {
         recreateModel();
         return "List";
     }
-
+    
     public String destroyAndView() {
         performDestroy();
         recreateModel();
@@ -333,6 +333,13 @@ public class UserController implements Serializable  {
             recreateModel();
             return "List";
         }
+    }
+
+    public String destroyFromProfil() {
+        performDestroy();
+        recreateModel();
+        updateCurrentItem();
+        return "/homePage.xhtml";
     }
 
     private void performDestroy() {
