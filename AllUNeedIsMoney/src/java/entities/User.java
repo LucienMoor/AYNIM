@@ -49,7 +49,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name= "User.findBySearch", query = "SELECT u FROM User u WHERE u.nickname LIKE :nickname")})  
 
 public class User implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "nickname")
+    @OneToMany(mappedBy = "nickname")
     private Collection<UserGroup> userGroupCollection;
     private static final long serialVersionUID = 1L;
     @Id

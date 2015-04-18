@@ -27,7 +27,7 @@ public class AuthenticationController implements Serializable{
     public AuthenticationController() {
     }
     
-    public String logout() {
+    public static String logout() {
         String page="/login.xhtml";
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
