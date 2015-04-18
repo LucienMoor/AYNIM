@@ -30,7 +30,7 @@
                             </f:facet>
                             <h:commandLink action="#{userController.prepareMyView(item.nickname)}" value="#{bundle.ListContactViewLink}"/>
                             <h:outputText value=" "/>
-                            <h:commandLink action="#{contactController.destroy}" value="#{bundle.ListContactDestroyLink}"/>
+                            <h:commandLink action="#{contactController.destroyContact(item.id,request.remoteUser)}" value="#{bundle.ListContactDestroyLink}"/>
                         </h:column>
                     </h:dataTable>
                 </h:panelGroup>

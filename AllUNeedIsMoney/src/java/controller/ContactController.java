@@ -174,6 +174,15 @@ public class ContactController implements Serializable {
         recreateModel();
         return "List";
     }
+    
+    public String destroyContact(User userToRemove,String me){
+        
+        current=contactToDestroy;
+        performDestroy();
+        recreatePagination();
+        recreateModel();
+        return "List";
+    }
 
     public String destroyAndView() {
         performDestroy();
