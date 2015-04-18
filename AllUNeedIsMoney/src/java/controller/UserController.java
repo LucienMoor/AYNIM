@@ -336,12 +336,22 @@ public class UserController implements Serializable  {
     }
 
     public String destroyFromProfil() {
-        performDestroy();
+        performDestroyAndLogout();
         recreateModel();
         updateCurrentItem();
         return "/homePage.xhtml";
     }
 
+    private void performDestroyAndLogout() {
+        try {
+            getFacade().remove(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("UserDeleted"));
+            AuthenticationController.logout();
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+        }
+    }
+    
     private void performDestroy() {
         try {
             getFacade().remove(current);
