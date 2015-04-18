@@ -43,7 +43,7 @@
                     Profil picture : <h:inputFile id="picture" value="#{userController.file}"/>
                 </h:panelGrid>
                 <br />
-                <h:commandLink action="#{userController.create}" value="#{bundle.CreateUserSaveLink}" />
+                <h:commandLink id="createLink" action="#{userController.create}" value="#{bundle.CreateUserSaveLink}" />
                 <br />
                 <br />
                 <h:commandLink action="#{userController.prepareList}" value="#{bundle.CreateUserShowAllLink}" immediate="true"/>

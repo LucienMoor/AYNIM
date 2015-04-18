@@ -36,7 +36,7 @@
                         <li><a href="/AllUNeedIsMoney/user/List.xhtml">See All</a></li>
                         <li>
                             <h:form>
-                            <h:commandLink action="#{userController.prepareMyView(request.remoteUser)}">
+                            <h:commandLink id="profilLink" action="#{userController.prepareMyView(request.remoteUser)}">
                                 <h:graphicImage library="images" name="smiley-small.png" />
                             </h:commandLink>
                             </h:form>
