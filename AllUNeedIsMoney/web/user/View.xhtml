@@ -18,9 +18,9 @@
                     
                     <p>
                         <c:if test="#{not empty request.remoteUser}">
-                            <h:form>
-                                <h:commandLink rendered="${userController.isCurrentUser(userController.selected.nickname, request.remoteUser)==true}" action="#{userController.destroyAndView}" value="#{bundle.ListUserDestroyLink}" class="btn-danger"/>
-                                <h:commandLink rendered="${userController.isCurrentUser(userController.selected.nickname, request.remoteUser)==true}" action="/poorSecure/user/Edit" value="#{bundle.ListUserEditLink}" class="btn-info"/>
+                            <h:form id = "profilForm" >
+                                <h:commandLink id="destroyButton" rendered="${userController.isCurrentUser(userController.selected.nickname, request.remoteUser)==true}" action="#{userController.destroyFromProfil}" value="#{bundle.ListUserDestroyLink}" class="btn-danger"/>
+                                <h:commandLink id="editButton" rendered="${userController.isCurrentUser(userController.selected.nickname, request.remoteUser)==true}" action="/poorSecure/user/Edit" value="#{bundle.ListUserEditLink}" class="btn-info"/>
                             </h:form>
                         </c:if>
                     </p>

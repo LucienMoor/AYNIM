@@ -75,19 +75,14 @@ public class EditTest {
 
         @Test
         public void testEdit() throws Exception {
-System.out.println("Before login");
     
             login("test",password);
-               System.out.println("After login");
-            //Search user
-            driver.get(baseUrl + "user/List.xhtml");
+            
+            driver.get(baseUrl);
             Thread.sleep(1000);
-            driver.findElement(By.name("j_idt11:j_idt13")).clear();
-            driver.findElement(By.name("j_idt11:j_idt13")).sendKeys("test");
-            Thread.sleep(100);
-            driver.findElement(By.id("j_idt11:searchButton")).click();
+            driver.findElement(By.id("headerFormProfil:profilLink")).click();
             Thread.sleep(1000);
-            driver.findElement(By.linkText("Edit")).click();
+            driver.findElement(By.id("profilForm:editButton")).click();
             Thread.sleep(1000);
 
             driver.findElement(By.name("form:email")).clear();
@@ -107,12 +102,14 @@ System.out.println("Before login");
             driver.findElement(By.name("form:description")).clear();
             driver.findElement(By.name("form:description")).sendKeys(description);
 
-            driver.findElement(By.linkText("Save")).click();
+            driver.findElement(By.id("form:editLink")).click();
             Thread.sleep(1000);
-            if (driver.findElement(By.id("javax_faces_developmentstage_messages")).getText() != "") 
-                assertEquals(result, driver.findElement(By.id("javax_faces_developmentstage_messages")).getText());
-            else
+            
+            //check if we are still in the edit form (error) or not (success) 
+            if (isElementPresent(By.name("form:email"))) 
                 assertEquals(result,driver.findElement(By.id("messagePanel")).getText());
+            else
+                assertEquals(result, driver.findElement(By.id("javax_faces_developmentstage_messages")).getText());
         }
     }
 
@@ -124,7 +121,7 @@ System.out.println("Before login");
         driver.get(baseUrl + "poorSecure/user/Edit.xhtml");
         Thread.sleep(1000);
         //Check if the application redirect the user on the login page
-            assertTrue(isElementPresent(By.id("login")));
+        assertTrue(isElementPresent(By.id("login")));
         }
     }
 
@@ -133,7 +130,7 @@ System.out.println("Before login");
         System.setProperty("webdriver.chrome.driver", "c:/temp/chromedriver.exe");
         driver = new ChromeDriver();
         baseUrl = "http://localhost:20628/AllUNeedIsMoney/";
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
     }
 
     @AfterClass
@@ -150,13 +147,11 @@ System.out.println("Before login");
     }
 
     private static void login(String username, String password) throws Exception {
-        System.out.println("Before login URL");
         driver.get(baseUrl + "login.xhtml");
-        System.out.println("After login URL");
-        System.out.println("password :" +password );
         Thread.sleep(1000);
         driver.findElement(By.name("j_username")).clear();
         driver.findElement(By.name("j_username")).sendKeys(username);
+        Thread.sleep(100);
         driver.findElement(By.name("j_password")).clear();
         driver.findElement(By.name("j_password")).sendKeys(password);
         Thread.sleep(100);
@@ -169,9 +164,9 @@ System.out.println("Before login");
         driver.get(baseUrl);
         Thread.sleep(1000);
         //Check if link for log out appear --> user log in 
-        if(isElementPresent(By.id("j_idt32:logoutLink")))
+        if(isElementPresent(By.id("headerFormLogout:logoutLink")))
         {
-            driver.findElement(By.id("j_idt32:logoutLink")).click();
+            driver.findElement(By.id("headerFormLogout:logoutLink")).click();
             Thread.sleep(1000);
         }
     }

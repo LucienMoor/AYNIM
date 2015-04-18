@@ -1,7 +1,11 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package AYNIMTest.user;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -16,38 +20,21 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 /**
  *
  * @author joe.butikofe
  */
-@RunWith(Parameterized.class)
-public class ReadTest {
+public class DestroyTest {
     
     private static WebDriver driver;
     private static String baseUrl;
     private static boolean acceptNextAlert = true;
     private static StringBuffer verificationErrors = new StringBuffer();
-    private static String nickname;
-    private static String email;
-    private static String birthday;
-    private static String password;
-    private static String country;
-    private static String city;
-    private static String description;
     
-    private static String result;
-    
-    public ReadTest(String nickname, String email, String password, String country, String city, String description, String result) {
-        this.nickname = nickname;
-        this.email = email;
-        this.password = password;
-        this.country = country;
-        this.city = city;
-        this.description = description;
-        this.result = result;
+    public DestroyTest() {
+       
     }
     
     @BeforeClass
@@ -70,35 +57,44 @@ public class ReadTest {
     @After
     public void tearDown() {
     }
-
-	
-    @Parameterized.Parameters
-    public static Iterable<Object[]> data1() {
-        return Arrays.asList(new Object[][]{
-            {"test", "test@test.com", "123456789","Testland","Test Town","It’s a test","User was successfully created."}
-        });
-    }
     
     @Test
-    public void testRead() throws Exception {
-
-        //Search user
-        driver.get(baseUrl+"user/List.xhtml");
-        Thread.sleep(1000);
-        driver.findElement(By.id("headerFormSearch:searchField")).clear();
-        driver.findElement(By.id("headerFormSearch:searchField")).sendKeys("test");
-        Thread.sleep(1000);
-        driver.findElement(By.id("headerFormSearch:searchButton")).click();
-        Thread.sleep(1000);
-        driver.findElement(By.linkText("test")).click();
+    public void testDestroy() throws Exception {
+        
+        login("test","qwertz");
+        
+        driver.get(baseUrl);
         Thread.sleep(1000);
         
-        //Check profil
-        assertEquals(nickname,driver.findElement(By.id("nickname")).getText());
-        assertEquals(country,driver.findElement(By.id("country")).getText());
-        assertEquals(city,driver.findElement(By.id("city")).getText());
-        assertEquals(description, driver.findElement(By.id("description")).getText());
+        driver.findElement(By.id("headerFormProfil:profilLink")).click();
+        Thread.sleep(1000);
+        driver.findElement(By.id("profilForm:destroyButton")).click();
+        Thread.sleep(1000);
+        assertEquals("User was successfully deleted.", driver.findElement(By.id("javax_faces_developmentstage_messages")).getText());
+    }
+    
+    private void login(String username, String password) throws Exception {
+        driver.get(baseUrl + "login.xhtml");
+        Thread.sleep(1000);
+        driver.findElement(By.name("j_username")).clear();
+        driver.findElement(By.name("j_username")).sendKeys(username);
+        driver.findElement(By.name("j_password")).clear();
+        driver.findElement(By.name("j_password")).sendKeys(password);
         Thread.sleep(100);
+        driver.findElement(By.id("login")).click();
+        Thread.sleep(1000);
+        assertTrue(baseUrl+"j_security_check" != driver.getCurrentUrl());
+    }
+
+    private void logout() throws Exception {
+        driver.get(baseUrl);
+        Thread.sleep(1000);
+        //Check if link for log out appear --> user log in 
+        if(isElementPresent(By.id("headerFormLogout:logoutLink")))
+        {
+            driver.findElement(By.id("headerFormLogout:logoutLink")).click();
+            Thread.sleep(1000);
+        }
     }
     
     private boolean isElementPresent(By by) {
