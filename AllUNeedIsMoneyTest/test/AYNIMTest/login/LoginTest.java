@@ -87,7 +87,7 @@ public class LoginTest {
         if(password == "123456789")
         {
             assertEquals(baseUrl, driver.getCurrentUrl());
-            assertTrue(isElementPresent(By.id("j_idt18:profilLink")));
+            assertTrue(isElementPresent(By.id("headerFormProfil:profilLink")));
         }
         else
         {
@@ -99,9 +99,9 @@ public class LoginTest {
         driver.get(baseUrl);
         Thread.sleep(1000);
         //Check if link for log out appear --> user log in 
-        if(isElementPresent(By.id("j_idt21:logoutLink")))
+        if(isElementPresent(By.id("headerFormLogout:logoutLink")))
         {
-            driver.findElement(By.id("j_idt21:logoutLink")).click();
+            driver.findElement(By.id("headerFormLogout:logoutLink")).click();
             Thread.sleep(1000);
         }
     }

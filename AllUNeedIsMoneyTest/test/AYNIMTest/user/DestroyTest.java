@@ -66,9 +66,9 @@ public class DestroyTest {
         driver.get(baseUrl);
         Thread.sleep(1000);
         
-        driver.findElement(By.id("j_idt18:profilLink")).click();
+        driver.findElement(By.id("headerFormProfil:profilLink")).click();
         Thread.sleep(1000);
-        driver.findElement(By.id("j_idt43:destroyButton")).click();
+        driver.findElement(By.id("profilForm:destroyButton")).click();
         Thread.sleep(1000);
         assertEquals("User was successfully deleted.", driver.findElement(By.id("javax_faces_developmentstage_messages")).getText());
     }
@@ -90,9 +90,9 @@ public class DestroyTest {
         driver.get(baseUrl);
         Thread.sleep(1000);
         //Check if link for log out appear --> user log in 
-        if(isElementPresent(By.id("j_idt21:logoutLink")))
+        if(isElementPresent(By.id("headerFormLogout:logoutLink")))
         {
-            driver.findElement(By.id("j_idt21:logoutLink")).click();
+            driver.findElement(By.id("headerFormLogout:logoutLink")).click();
             Thread.sleep(1000);
         }
     }

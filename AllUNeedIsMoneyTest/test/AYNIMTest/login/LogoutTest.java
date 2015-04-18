@@ -61,36 +61,31 @@ public class LogoutTest {
     }
     
     @Test
-    public void testLogin() throws Exception {
+    public void testLogout() throws Exception {
         
+        login();
+        driver.get(baseUrl);
+        Thread.sleep(1000);
+        //Check if link for log out appear --> user log in 
+        assertTrue(isElementPresent(By.id("headerFormLogout:logoutLink")));
+        driver.findElement(By.id("headerFormLogout:logoutLink")).click();
+        Thread.sleep(1000);
+        assertFalse(isElementPresent(By.id("headerFormProfil:profilLink")));
+        assertEquals(baseUrl+"index.xhtml", driver.getCurrentUrl());
+    }
+    
+    private static void login() throws Exception
+    {
         driver.get(baseUrl + "login.xhtml");
         Thread.sleep(1000);
         driver.findElement(By.name("j_username")).clear();
         driver.findElement(By.name("j_username")).sendKeys("test");
+        Thread.sleep(100);
         driver.findElement(By.name("j_password")).clear();
         driver.findElement(By.name("j_password")).sendKeys("123456789");
         Thread.sleep(100);
         driver.findElement(By.id("login")).click();
         Thread.sleep(1000);
-        assertEquals(baseUrl, driver.getCurrentUrl());
-        assertTrue(isElementPresent(By.id("j_idt18:profilLink")));
-        Thread.sleep(1000);
-    }
-    
-    @Test
-    public void testLogout() throws Exception {
-        
-    }
-
-    private void logout() throws Exception {
-        driver.get(baseUrl);
-        Thread.sleep(1000);
-        //Check if link for log out appear --> user log in 
-        if(isElementPresent(By.id("j_idt32:logoutLink")))
-        {
-            driver.findElement(By.id("j_idt32:logoutLink")).click();
-            Thread.sleep(1000);
-        }
     }
     
     private boolean isElementPresent(By by) {

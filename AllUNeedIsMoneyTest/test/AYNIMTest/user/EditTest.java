@@ -77,22 +77,12 @@ public class EditTest {
         public void testEdit() throws Exception {
     
             login("test",password);
-            //Search user
-            /*driver.get(baseUrl + "user/List.xhtml");
-            Thread.sleep(1000);
-            driver.findElement(By.name("j_idt11:j_idt13")).clear();
-            driver.findElement(By.name("j_idt11:j_idt13")).sendKeys("test");
-            Thread.sleep(100);
-            driver.findElement(By.id("j_idt11:searchButton")).click();
-            Thread.sleep(1000);
-            driver.findElement(By.linkText("Edit")).click();
-            Thread.sleep(1000);*/
             
             driver.get(baseUrl);
             Thread.sleep(1000);
-            driver.findElement(By.id("j_idt18:profilLink")).click();
+            driver.findElement(By.id("headerFormProfil:profilLink")).click();
             Thread.sleep(1000);
-            driver.findElement(By.id("j_idt43:editButton")).click();
+            driver.findElement(By.id("profilForm:editButton")).click();
             Thread.sleep(1000);
 
             driver.findElement(By.name("form:email")).clear();
@@ -174,9 +164,9 @@ public class EditTest {
         driver.get(baseUrl);
         Thread.sleep(1000);
         //Check if link for log out appear --> user log in 
-        if(isElementPresent(By.id("j_idt21:logoutLink")))
+        if(isElementPresent(By.id("headerFormLogout:logoutLink")))
         {
-            driver.findElement(By.id("j_idt21:logoutLink")).click();
+            driver.findElement(By.id("headerFormLogout:logoutLink")).click();
             Thread.sleep(1000);
         }
     }

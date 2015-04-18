@@ -85,10 +85,10 @@ public class ReadTest {
         //Search user
         driver.get(baseUrl+"user/List.xhtml");
         Thread.sleep(1000);
-        driver.findElement(By.name("j_idt11:j_idt13")).clear();
-        driver.findElement(By.name("j_idt11:j_idt13")).sendKeys("test");
+        driver.findElement(By.id("headerFormSearch:searchField")).clear();
+        driver.findElement(By.id("headerFormSearch:searchField")).sendKeys("test");
         Thread.sleep(1000);
-        driver.findElement(By.id("j_idt11:searchButton")).click();
+        driver.findElement(By.id("headerFormSearch:searchButton")).click();
         Thread.sleep(1000);
         driver.findElement(By.linkText("test")).click();
         Thread.sleep(1000);
