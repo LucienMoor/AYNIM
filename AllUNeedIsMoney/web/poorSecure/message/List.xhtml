@@ -10,13 +10,13 @@
     <ui:composition template="/layout/commonLayout.xhtml">
     	<ui:define name="content">
             <h1><h:outputText value="#{bundle.ListMessageTitle}"></h:outputText></h1>
-            <h:form styleClass="jsfcrud_list_form">
+            <h:form id="messageForm" styleClass="jsfcrud_list_form">
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
                 <h:outputText escape="false" value="#{bundle.ListMessageEmpty}" rendered="#{messageController.items.rowCount == 0}"/>
                 <h:panelGroup rendered="#{messageController.items.rowCount > 0}">
-                    <h:dataTable value="#{messageController.getUserItem(request.remoteUser)}" var="item" class="table table-striped table-condensed">
+                    <h:dataTable id="messageTable" value="#{messageController.getUserItem(request.remoteUser)}" var="item" class="table table-striped table-condensed">
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListMessageTitle_senderid}"/>
@@ -46,7 +46,7 @@
                 <br />
                 <c:choose>
                     <c:when test="#{request.isUserInRole('RichRole')}">
-                        <h:commandLink action="#{messageController.prepareCreate}" value="#{bundle.ListMessageCreateLink}"/>
+                        <h:commandLink id="newMessageLink" action="#{messageController.prepareCreate}" value="#{bundle.ListMessageCreateLink}"/>
                     </c:when>
                 </c:choose>
                 <br />
