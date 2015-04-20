@@ -9,15 +9,29 @@
     <body>
 	    <ui:composition template="layout/commonLayout.xhtml">    
                 <ui:define name="content">   
-                    <div class="background">
-                        <h1 class="text-center pinyon">Welcome!</h1>
-                        <c:if test="${request.remoteUser==null}">    
-                        <p class="text-center normal-text">Create a user <a href="/AllUNeedIsMoney/user/Create.xhtml">here!</a></p> 
-                        </c:if>
+                    <div class="jumbotron">
+                        <div class="container">
+                            <h1 class="text-center pinyon">Wanna be happy?</h1>
+                            <c:if test="${request.remoteUser==null}">    
+                            <p class="text-center normal-text">Find it <a href="/AllUNeedIsMoney/user/Create.xhtml">here!</a></p> 
+                            </c:if>
+                         </div>
+                        <div class="homepage">
+                            <div class="pinyon text-center">
+                                <h3>
+                                    All the things I could do
+                                    If I had a little money
+                                    It's a rich man's world
+                                </h3>
+                                <p>
+                                    Abba Money, money, money
+                                </p>
+                            </div>
                         <div class="logo" id=" imageWrapper">
-                            <p class="normal-text">(futur) sponsors</p>
-                            <a href="http://www.luxurylife-magazin.com/"><h:graphicImage library="images" name="llm-logo.png"/></a>
-                            <a href="http://www.swissluxuryshop.ch/"><h:graphicImage library="images" name="logo.png"/></a>
+                                <p class="normal-text">(futur) sponsors</p>
+                                <a href="http://www.luxurylife-magazin.com/"><h:graphicImage library="images" name="llm-logo.png"/></a>
+                                <a href="http://www.swissluxuryshop.ch/"><h:graphicImage library="images" name="logo.png"/></a>
+                        </div>
                         </div>
                     </div>    
     		</ui:define>

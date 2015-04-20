@@ -1,4 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Pinyon+Script);
+
 /*!
  * Bootstrap v3.3.2 (http://getbootstrap.com)
  * Copyright 2011-2015 Twitter, Inc.
@@ -7,11 +8,10 @@
 
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 div.background{
-    background-image: url("#{resource['images/background4.png']}");
     background-color: black;
     background-position: right;
     background-repeat: no-repeat;
-  
+    background-image: url("#{resource['images/background4.png']}");
     position:fixed;
     padding:0;
     margin:0;
@@ -19,6 +19,16 @@ div.background{
     width: 100%;
     height: 100%;
 } 
+
+div.homepage {
+    background-color: black; 
+    width: 100%;
+    height: 100%;
+    
+    position:fixed;
+    padding:0;
+    margin:0;
+}
 
 div.profil{
     background-image: url("#{resource['images/profil.png']}");
@@ -39,6 +49,12 @@ div.profil{
     color: white;
 }
 
+.pinyon-profil{
+    font-family: 'Pinyon Script', cursive;
+    font-size: 150%;
+}
+
+
 .normal-text{
     color: white;
 }
@@ -48,7 +64,7 @@ div.profil{
 }
 div.logo{
          position: absolute; 
-         bottom: 20%; 
+         bottom: 40%; 
 }
 
 html {
@@ -4891,10 +4907,14 @@ a.badge:focus {
   margin-bottom: 30px;
   color: inherit;
   background-color: #eee;
+  background-image: url("#{resource['images/jumbotron2.png']}");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 .jumbotron h1,
 .jumbotron .h1 {
-  color: inherit;
+  //color: inherit;
 }
 .jumbotron p {
   margin-bottom: 15px;

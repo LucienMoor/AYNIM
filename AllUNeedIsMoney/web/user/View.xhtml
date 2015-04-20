@@ -10,7 +10,7 @@
     <body>
         <ui:composition template="/layout/commonLayout.xhtml">
             <ui:define name="content">          
-                <div class="text-center profil">
+                <div class="text-center">
                      <div class="avatar center-block">
                     <p>
                         <h:graphicImage class="thumbnail center-block" library="images" name="#{userController.selected.profilPicture}"/>
@@ -25,27 +25,31 @@
                         </c:if>
                     </p>
                     <p>
-                        <label>Score : </label> 
+                        <label class="pinyon-profil">Score : </label> 
                         <h:outputText id="score1" value="#{userController.selected.score1}"/>
                     </p>
                 </div>
-                        <span>
-                            <p>
-                                <h:outputText id="nickname" value="#{userController.selected.nickname}" title="#{bundle.ViewUserTitle_nickname}"/>
-                            </p>
-                            <p>
-                                <h:outputText id="birthday" value="#{userController.selected.birthday}" title="#{bundle.ViewUserTitle_birthday}">
-                                    <f:convertDateTime pattern="MM/dd/yyyy" />
-                                </h:outputText>
-                            </p>
-                            <p>
-                                <h:outputText id="city" value="#{userController.selected.city}" title="#{bundle.ViewUserTitle_city}"/>
-                            </p>
-                            <p>
-                                <h:outputText id="country" value="#{userController.selected.country}" title="#{bundle.ViewUserTitle_country}"/>
-                            </p>
-                        </span>
-                        <h:outputText id="description" value="#{userController.selected.description}" title="#{bundle.ViewUserTitle_description}"/> 
+                <p>
+                    <label class="pinyon-profil">Name : </label> 
+                    <h:outputText id="nickname" value="#{userController.selected.nickname}" title="#{bundle.ViewUserTitle_nickname}"/>
+                </p>
+                <p>
+                    <label class="pinyon-profil">Nickname : </label> 
+                    <h:outputText id="birthday" value="#{userController.selected.birthday}" title="#{bundle.ViewUserTitle_birthday}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p>
+                <p>
+                    <label class="pinyon-profil">City : </label> 
+                    <h:outputText id="city" value="#{userController.selected.city}" title="#{bundle.ViewUserTitle_city}"/>
+                </p>
+                <p>
+                    <label class="pinyon-profil">Country : </label> 
+                    <h:outputText id="country" value="#{userController.selected.country}" title="#{bundle.ViewUserTitle_country}"/>
+                </p>
+                    
+                    <p><label class="pinyon-profil">Description : </label></p>
+                    <p><h:outputText id="description" value="#{userController.selected.description}" title="#{bundle.ViewUserTitle_description}"/></p>
                 </div>
             </ui:define>
     	</ui:composition>
