@@ -67,7 +67,7 @@ public class LoginTest {
     public static Iterable<Object[]> data1() {
         return Arrays.asList(new Object[][]{
             {"test", "123456789"},
-            {"t", "jambonPoulet"}
+            {"test", "jambonPoulet"}
         });
     }
     

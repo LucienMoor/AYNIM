@@ -521,6 +521,12 @@ public class UserController implements Serializable  {
         return userGroup.getGroupname().getGroupname().equals("RichRole");
     }
     
+    public boolean getIsAdmin()
+    {
+        UserGroup userGroup = (UserGroup) em.createNamedQuery("UserGroup.findByNickname").setParameter("nickname", current).getSingleResult();
+        return userGroup.getGroupname().getGroupname().equals("AdminRole");
+    }
+    
     public void addScore(User usr)
     {
         System.out.println("add ploint pls");

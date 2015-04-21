@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -11,47 +11,47 @@
         <ui:composition template="/layout/commonLayout.xhtml">
             <ui:define name="content">          
                 <div class="text-center">
-                     <div class="avatar center-block">
+                    <div class="avatar center-block">
+                        <p>
+                            <h:graphicImage class="thumbnail center-block" library="images" name="#{userController.selected.profilPicture}"/>
+                        </p>
+
+                        <p>
+                            <c:if test="#{not empty request.remoteUser}">
+                                <h:form id = "profilForm" >
+                                    <h:commandLink id="destroyButton" rendered="${userController.isCurrentUser(userController.selected.nickname, request.remoteUser)==true}" action="#{userController.destroyFromProfil}" value="#{bundle.ListUserDestroyLink}" class="btn-danger"/>
+                                    <h:commandLink id="editButton" rendered="${userController.isCurrentUser(userController.selected.nickname, request.remoteUser)==true}" action="/poorSecure/user/Edit" value="#{bundle.ListUserEditLink}" class="btn-info"/>
+                                </h:form>
+                            </c:if>
+                        </p>
+                        <p>
+                            <label class="pinyon-profil">Score : </label> 
+                            <h:outputText id="score1" value="#{userController.selected.score1}"/>
+                        </p>
+                    </div>
                     <p>
-                        <h:graphicImage class="thumbnail center-block" library="images" name="#{userController.selected.profilPicture}"/>
-                    </p>
-                    
-                    <p>
-                        <c:if test="#{not empty request.remoteUser}">
-                            <h:form id = "profilForm" >
-                                <h:commandLink id="destroyButton" rendered="${userController.isCurrentUser(userController.selected.nickname, request.remoteUser)==true}" action="#{userController.destroyFromProfil}" value="#{bundle.ListUserDestroyLink}" class="btn-danger"/>
-                                <h:commandLink id="editButton" rendered="${userController.isCurrentUser(userController.selected.nickname, request.remoteUser)==true}" action="/poorSecure/user/Edit" value="#{bundle.ListUserEditLink}" class="btn-info"/>
-                            </h:form>
-                        </c:if>
+                        <label class="pinyon-profil">Name : </label> 
+                        <h:outputText id="nickname" value="#{userController.selected.nickname}" title="#{bundle.ViewUserTitle_nickname}"/>
                     </p>
                     <p>
-                        <label class="pinyon-profil">Score : </label> 
-                        <h:outputText id="score1" value="#{userController.selected.score1}"/>
+                        <label class="pinyon-profil">Nickname : </label> 
+                        <h:outputText id="birthday" value="#{userController.selected.birthday}" title="#{bundle.ViewUserTitle_birthday}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
                     </p>
-                </div>
-                <p>
-                    <label class="pinyon-profil">Name : </label> 
-                    <h:outputText id="nickname" value="#{userController.selected.nickname}" title="#{bundle.ViewUserTitle_nickname}"/>
-                </p>
-                <p>
-                    <label class="pinyon-profil">Nickname : </label> 
-                    <h:outputText id="birthday" value="#{userController.selected.birthday}" title="#{bundle.ViewUserTitle_birthday}">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:outputText>
-                </p>
-                <p>
-                    <label class="pinyon-profil">City : </label> 
-                    <h:outputText id="city" value="#{userController.selected.city}" title="#{bundle.ViewUserTitle_city}"/>
-                </p>
-                <p>
-                    <label class="pinyon-profil">Country : </label> 
-                    <h:outputText id="country" value="#{userController.selected.country}" title="#{bundle.ViewUserTitle_country}"/>
-                </p>
-                    
+                    <p>
+                        <label class="pinyon-profil">City : </label> 
+                        <h:outputText id="city" value="#{userController.selected.city}" title="#{bundle.ViewUserTitle_city}"/>
+                    </p>
+                    <p>
+                        <label class="pinyon-profil">Country : </label> 
+                        <h:outputText id="country" value="#{userController.selected.country}" title="#{bundle.ViewUserTitle_country}"/>
+                    </p>
+
                     <p><label class="pinyon-profil">Description : </label></p>
                     <p><h:outputText id="description" value="#{userController.selected.description}" title="#{bundle.ViewUserTitle_description}"/></p>
                 </div>
             </ui:define>
-    	</ui:composition>
+        </ui:composition>
     </body>
 </html>

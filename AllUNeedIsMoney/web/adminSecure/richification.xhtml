@@ -11,20 +11,25 @@
         <ui:define name="content">
 
             <h:outputText value="Make a user rich $$$"></h:outputText>
-            
+
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form id="form" enctype="multipart/form-data">
-                  
-                <c:if test="${userController.isRich}">
-                <h:commandLink action="#{userController.makePoor}" value="Make User poor" />
+
+                <c:if test="${!userController.isAdmin}">
+                    <c:if test="${userController.isRich}">
+                        <h:commandLink action="#{userController.makePoor}" value="Make User poor" />
+                    </c:if>
+                    <c:if test="${!userController.isRich}">
+                        <h:commandLink action="#{userController.makeRich}" value="Make User rich" />
+                    </c:if>
                 </c:if>
-                <c:if test="${!userController.isRich}">
-                                    <h:commandLink action="#{userController.makeRich}" value="Make User rich" />
+                <c:if test="${userController.isAdmin}">
+                    <p>You can't edit the permission of an admin.</p>
                 </c:if>
                 <br />
-                
+
             </h:form>
         </ui:define>
     </ui:composition>

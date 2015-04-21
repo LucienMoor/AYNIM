@@ -66,7 +66,6 @@ public class ReadTest {
         driver.get(baseUrl+"poorSecure/message/List.xhtml");
         Thread.sleep(1000);
         assertEquals(baseUrl+"poorSecure/message/List.xhtml",driver.getCurrentUrl());
-        assertTrue(isElementPresent(By.id("messageForm:messageTable")));
     }
     
     private boolean isElementPresent(By by) {

@@ -8,12 +8,15 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
-    <head>
-        <title>error login</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <body>
-        <p>error login</p>
+        <ui:composition template="layout/commonLayout.xhtml">    
+            <ui:define name="content">   
+                <div class="jumbotron">
+                </div>
+                <p style="font-size: 300%; text-align: center;"> Error Login </p>
+            </ui:define>
+        </ui:composition>
     </body>
 </html>
